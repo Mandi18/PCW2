@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
+        <link rel="icon" type="image/x-icon" href="img/icons/favicon/hamburguesa.png">
+        <title>Inicio</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fa fa-bars menu-responsive" style="font-size:60px;color:white;" ></i>
+                </label>
+                <div class="enlace">
+                    <div class="enlace-logo">
+                        <a href="index.html" >
+                            <img src="img/logo2.png" alt="Logotipo de la web de recetas" class="logo">
+                        </a>
+                    </div>
+                    <div class="enlace-logo-titulo">
+                        <a href="index.html" >
+                            <h1 class="madimi-one-regular">Cinco Tenedores</h1>
+                        </a>
+                    </div>
+                </div>
+        
+                <ul>
+                    <li><div class="elemento-menu" ><a class="active" href="index.html"><i class="fas fa-home"></i><span>Inicio</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="buscar.html"><i class="fas fa-search"></i><span>Buscar</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="nueva.html"><i class="fas fa-plus"></i><span>Nueva</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="login.html"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="registro.html"><i class="fas fa-user-plus"></i><span>Registro</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div></li>
+                </ul>
+        
+            </nav>
+        </header>
+        
+        <div class="page-title-container">
+
+            <h2 class="page-subtitle">Crea y comparte tus mejores recetas</h2>
+        </div>
+
+        <div class="contenedor2">
+            <div class="main">
+                <div class="login">
+                    <form method="POST" autocomplete="on">
+                        <label>Registrarse</label>
+                        <input type="text" name="cname" placeholder="Name" pattern="[A-Za-z][A-Za-z0-9]*" minlength="4" maxlength="20" required="required" autofocus>
+                        <input type="email" name="email" placeholder="Email" required="required">
+                        <input type="password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.-]+$" minlength="4" maxlength="20" required="required">  
+                        <input type="password" name="password2" placeholder="Confirmar">   
+                        <button>Registrarse</button>
+                    </form>
+                    <div class="link-registro">
+                    Ya tengo cuenta, <a  href="login.html">Login</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <footer>
+            <div>
+                <p>&copy;</p>
+    <time datetime="2024">2024</time>
+            </div>
+            <a href="acerca.html">Contacto</a>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
+        <link rel="icon" type="image/x-icon" href="img/icons/favicon/hamburguesa.png">
+        <title>Inicio</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fa fa-bars menu-responsive" style="font-size:60px;color:white;" ></i>
+                </label>
+                <div class="enlace">
+                    <div class="enlace-logo">
+                        <a href="index.html" >
+                            <img src="img/logo2.png" alt="Logotipo de la web de recetas" class="logo">
+                        </a>
+                    </div>
+                    <div class="enlace-logo-titulo">
+                        <a href="index.html" >
+                            <h1 class="madimi-one-regular">Cinco Tenedores</h1>
+                        </a>
+                    </div>
+                </div>
+        
+                <ul>
+                    <li><div class="elemento-menu" ><a class="active" href="index.html"><i class="fas fa-home"></i><span>Inicio</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="buscar.html"><i class="fas fa-search"></i><span>Buscar</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="nueva.html"><i class="fas fa-plus"></i><span>Nueva</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="login.html"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="registro.html"><i class="fas fa-user-plus"></i><span>Registro</span></a></div></li>
+                    <li><div class="elemento-menu" ><a  href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div></li>
+                </ul>
+        
+            </nav>
+        </header>
+        
+        <div class="page-title-container">
+
+            <h2 class="page-subtitle">Crea y comparte tus mejores recetas</h2>
+        </div>
+
+        <div class="contenedor4">
+                <form  method="post" enctype="multipart/form-data">
+                    <div class="contenedor-formulario-nueva">
+                        <div class="datos-formutario-nueva">
+                            <label>Nombre</label>
+                            <input type="text" name="cname" placeholder="Nombre" maxlength="100" required>
+                            <label>Tiempo de Elaboracion</label>
+                            <input type="number" name="tiempo" placeholder="Tiempo" min="1">
+                            <label>Para cu&aacute;ntas personas</label>
+                            <input type="number" name="personas" placeholder="Personas" min="1" max="10">  
+                            <label>Dificultad</label> 
+                            <div class="buscar-dificultad">
+                                <select name="comunidad">
+                                    <option value="Dificultad">0-Baja</option>
+                                    <option value="Dificultad">1-Media</option>
+                                    <option value="Dificultad">2-Alta</option>
+                                </select><br><br>
+                            </div> 
+                            <label for="ingr">Ingredientes:</label>
+                            <input type="text" id="ingr" list="ingredientes">
+                            <datalist id="ingredientes">
+                                <option value="Hamburguesa">
+                                <option value="Pasta">
+                                <option value="Cebolla">
+                                <!-- Otros valores para rellenar el datalist -->
+                              </datalist> 
+                            <button>M&aacute;s Ingredientes</button>   
+                            <label for="tags">Etiquetas:</label>
+                            <input type="text" id="tags" list="etiquetas">
+                            <datalist id="etiquetas">
+                                <option value="Healthy">
+                                <option value="Vegetariano">
+                                <option value="Vegano">
+                                <!-- Otros valores para rellenar el datalist -->
+                              </datalist> 
+                              <button>M&aacute;s Etiquetas</button>  
+                              <div class="ingredientes-container">
+                                <input type="checkbox" id="ingrediente1" class="ingrediente-checkbox">
+                                <label for="ingrediente1" class="ingrediente">Hamburguesa</label>
+                                <button class="eliminar-btn">X</button>
+                            </div>
+                            <div class="ingredientes-container">
+                                <input type="checkbox" id="ingrediente2" class="ingrediente-checkbox">
+                                <label for="ingrediente2" class="ingrediente">Pasta</label>
+                                <button class="eliminar-btn">X</button>
+                            </div>
+                            <div class="ingredientes-container">
+                                <input type="checkbox" id="ingrediente3" class="ingrediente-checkbox">
+                                <label for="ingrediente3" class="ingrediente">Costillar</label>
+                                <button class="eliminar-btn">X</button>
+                            </div><br><br> 
+                            <div class="tags-container">
+                                <input type="checkbox" id="tag1" class="tag-checkbox">
+                                <label for="tag1" class="tag">Healthy</label>
+                                <button class="eliminar-btn">X</button>
+                            </div>
+                            <div class="tags-container">
+                                <input type="checkbox" id="tag2" class="tag-checkbox">
+                                <label for="tag2" class="tag">Vegetariano</label>
+                                <button class="eliminar-btn">X</button>
+                            </div>
+                            <div class="tags-container">
+                                <input type="checkbox" id="tag3" class="tag-checkbox">
+                                <label for="tag3" class="tag">Vegano</label>
+                                <button class="eliminar-btn">X</button>
+                            </div> 
+                        </div>
+                        <div class="contenedor-fotos-nuevas">
+                            <div class="contenedor-fotos-nuevas">
+                                <label>Subir fotos</label>
+                                <div class="fotos-nuevas">
+                                    <div class="contenedor-subir-fotos">
+                                        <div class="subir-foto">
+                                            <label for="foto1">
+                                                <img src="img/UploadIMG.png" alt="Upload Imagen" class="subir-foto-img">
+                                            </label>
+                                            <input id="foto1" type="file" required accept="image/*" style="display:none;">
+                                            <button class="eliminar-btn">Eliminar</button> <!-- Botón de eliminar -->
+                                        </div>
+                                        <textarea id="w3review1" name="comentario" placeholder="Descripcion..." maxlength="200" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div class="contenedor-subir-fotos">
+                                        <div class="subir-foto">
+                                            <label for="foto2">
+                                                <img src="img/UploadIMG.png" alt="Upload Imagen" class="subir-foto-img">
+                                            </label>
+                                            <input id="foto2" type="file" required accept="image/*" style="display:none;">
+                                            <button class="eliminar-btn">Eliminar</button> <!-- Botón de eliminar -->
+                                        </div>
+                                        <textarea id="w3review2" name="comentario" placeholder="Descripcion..." maxlength="200" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div class="contenedor-subir-fotos">
+                                        <div class="subir-foto">
+                                            <label for="foto3">
+                                                <img src="img/UploadIMG.png" alt="Upload Imagen" class="subir-foto-img">
+                                            </label>
+                                            <input id="foto3" type="file" required accept="image/*" style="display:none;">
+                                            <button class="eliminar-btn">Eliminar</button> <!-- Botón de eliminar -->
+                                        </div>
+                                        <textarea id="w3review3" name="comentario" placeholder="Descripcion..." maxlength="200" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div class="contenedor-subir-fotos">
+                                        <div class="subir-foto">
+                                            <label for="foto4">
+                                                <img src="img/UploadIMG.png" alt="Upload Imagen" class="subir-foto-img">
+                                            </label>
+                                            <input id="foto4" type="file" required accept="image/*" style="display:none;">
+                                            <button class="eliminar-btn">Eliminar</button> <!-- Botón de eliminar -->
+                                        </div>
+                                        <textarea id="w3review4" name="comentario" placeholder="Descripcion..." maxlength="200" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div class="contenedor-subir-fotos">
+                                        <div class="subir-foto">
+                                            <label for="foto5">
+                                                <img src="img/UploadIMG.png" alt="Upload Imagen" class="subir-foto-img">
+                                            </label>
+                                            <input id="foto5" type="file" required accept="image/*" style="display:none;">
+                                            <button class="eliminar-btn">Eliminar</button> <!-- Botón de eliminar -->
+                                        </div>
+                                        <textarea id="w3review5" name="comentario" placeholder="Descripcion..." maxlength="200" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div class="contenedor-subir-fotos">
+                                        <div class="subir-foto">
+                                            <label for="foto6">
+                                                <img src="img/UploadIMG.png" alt="Upload Imagen" class="subir-foto-img">
+                                            </label>
+                                            <input id="foto6" type="file" required accept="image/*" style="display:none;">
+                                            <button class="eliminar-btn">Eliminar</button> <!-- Botón de eliminar -->
+                                        </div>
+                                        <textarea id="w3review6" name="comentario" placeholder="Descripcion..." maxlength="200" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <!-- Repite lo mismo para cada foto -->
+                                </div>
+                            </div>
+                            <button>M&aacute;s Im&aacute;genes</button>  
+                        </div>
+                    
+                    </div>
+                    <div class="contenedor-nueva-elaboracion">
+                        <label>Elaboraci&oacute;n</label>
+                        <textarea id="w3review" name="elaboracion" rows="20" cols="50"></textarea> 
+                    </div>
+    
+                    <button type="reset">Limpiar</button>  
+                    <button type="submit">Crear</button>
+                </form>
+            </form>
+                
+            </div>
+            <footer>
+                <div>
+                    <p>&copy;</p>
+        <time datetime="2024">2024</time>
+                </div>
+                <a href="acerca.html">Contacto</a>
+            </footer>
+    </body>
+</html>

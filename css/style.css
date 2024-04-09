@@ -1,0 +1,1083 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+.madimi-one-regular,.page-subtitle {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+body{
+    background-color: white;
+}
+footer{
+    background-color: whitesmoke;
+}
+#btnArriba{
+    z-index: 1;
+    background-color: #ccc;
+    padding: .5em 1em;
+    font-weight: bold;
+}
+#btnArriba:hover {
+    box-shadow: 2px 2px 4px #000;
+}
+
+/*** CSS MENU PRINCIPAL ******/
+nav{
+    background:  #d7dbdd ;
+    height: 120px;
+    width: 100%;
+}
+
+.enlace{
+    position:absolute;
+    padding: 20px 50px;
+}
+
+.enlace-logo{
+    float: left;
+    height: 80px;
+    width: 100px;
+    
+}
+
+.enlace-logo-titulo{
+    float: left;
+    height: 80px;
+    width: 350px;
+    
+}
+
+.enlace-logo-titulo h1{
+    text-decoration: none;
+    font-size: 3rem;
+    padding-top: 15px;
+    color: green;
+}
+.menu-responsive{
+    height: 90px;
+    margin-top: 20px;
+}
+.logo{
+    height: 90px;
+}
+nav ul{
+    float: right;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+nav ul li{
+    display: inline-block;
+    
+    margin: 0 5px;
+    float: none;
+    
+}
+nav ul li a{
+    color: #fff;
+    font-size: 18px;
+    padding: 20px 30px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    background:  #515a5a ;
+    
+}
+
+li a.active, li a:hover{
+    background:  #85929e ;
+    transition: .5s;
+    display: inline;
+}
+
+li a:hover{
+    color: #3BB272;
+}
+.checkbtn{
+    font-size: 30px;
+    color: #fff;
+    float: right;
+   
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+#check{
+    display: none;
+}
+
+li >div >a > span {
+    padding-left: 10px;
+   
+}
+
+.elemento-menu{
+    display: flex;
+}
+
+/************* Titulo Principal ***************/
+
+.page-title-container{
+    background-color: gray;
+    width: 100%;
+    padding: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.page-title{
+    color:white;
+    text-align: center;
+    font-size: 3rem;
+}
+.page-subtitle{
+    color:white;
+    text-align: center;
+    font-size: 2rem;
+}
+
+/**** CONTENEDOR BODY ****/
+
+.contenedor{
+    width: 80%;
+    margin:auto;
+}
+
+.contenedor-articulos{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+    grid-template-rows: repeat(2, 1fr); /* 2 filas de igual tamaño */
+    grid-gap: 20px; /* espacio entre las celdas */
+    margin-top: 20px;
+}
+
+
+/**** CSS POST INDEX***/
+ /* Article container lo hare para que se divida según el número de fotos que hay con javascript para evitar los espacios en blanco*/
+.articles-container {
+    width: 100%;
+
+}
+  
+/* Estilo para cada artículo */
+article {
+    border: 1px solid #ccc; /* borde para cada artículo */
+    padding: 20px; /* espacio interno para el contenido */
+    text-align: center;
+}
+
+article h2,
+  article img{
+    display: block;
+    margin: 0 auto;
+}
+
+article h2 {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+  
+article img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.article-autor{
+    justify-content: space-between;
+    text-align: left;
+}
+
+article h3 {
+    font-size: 16px;
+    margin-top: 0px;
+    display: inline-block;
+    text-align:left;
+}
+
+article time{
+    display: inline-block;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.articles-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Número de líneas que deseas mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 1.2em; /* Tamaño máximo en altura */
+    text-overflow: ellipsis;      
+}
+
+article div a {
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    color: #333;
+}
+article div a:hover {
+    color: #3BB272;
+}
+
+/**** TOOLTIP ARTICULO ****/
+.tooltip h1{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    width: 80%;
+
+}
+  
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 400px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+  
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+/*** IMAGEN ARTICULO ***/
+.img-receta{
+    width: 100%;
+    padding: 2%;
+ 
+}
+
+.img-receta:hover{
+    transform: scale(1.2);
+    border-radius: 10%;
+}
+
+
+/*** RECETAS ARTICULO INFO* **/
+.receta-info{
+    background-color:  #e5e7e9 ;
+    padding: 2%;
+    width: 95%;
+    margin: auto;
+}
+
+.receta-info-personas, .receta-info-dificultad, .receta-info-tiempo{
+    margin-right: 5%;
+}
+
+.paginacion{
+    width: 60%;
+    margin: auto;
+    display: inline-block;
+}
+
+
+/** PAGINACION **/
+.paginacion {
+    width: 100%;
+    margin:auto;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: gray;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.paginacion a, .paginacion h2 {
+    font-size: 2em;
+    color: white;
+    width: 33%;
+    display: inline-block; /* Mostrar elementos en línea */
+}
+.paginacion a:hover{
+    color: #3BB272;
+}
+button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    color: #333;
+    cursor: pointer;
+  }
+  button:hover{
+    background-color: #3BB272;
+  }
+/***FOOTER****/
+.article-footer{
+    justify-content: space-between;
+  }
+  footer {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    position:relative;
+    margin-top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  footer div {
+    position: relative;
+    bottom: -2px;
+  }
+  footer a {
+    position: relative;
+    bottom: -2px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+  footer a:hover{
+    color: #3BB272;
+  }
+/********** LOGIN **********/
+.contenedor2{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 90vh;
+	font-family: 'Jost', sans-serif;
+}
+
+.main{
+	width: 600px;
+	height: 500px;
+	background: white;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
+}
+#chk{
+	display: none;
+}
+.login{
+	position: relative;
+	width:100%;
+	height: 100%;
+}
+form label{
+	color: rgb(0, 0, 0);
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 60px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+input{
+	width: 60%;
+	height: 30px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+form button{
+	width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: green;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+.link-registro{
+    text-align: center;
+    height: 40px;
+    padding-top: 10px;
+    color:rgb(0, 0, 0);
+}
+.link-registro a{
+    color:rgb(0, 0, 0);
+    text-decoration: underline;
+}
+
+
+/*** BUSCAR RECETA ******/
+.ingredientes-container,.tags-container {
+    display: inline-block;
+}
+
+.ingrediente-checkbox,.tag-checkbox {
+    display: none;
+}
+
+.ingrediente, .tag {
+    display: inline-block;
+    background-color: #e0e0e0;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+.subir-foto:hover .eliminar-btn {
+    display: inline-block; /* Muestra el botón de eliminar al pasar el mouse sobre la imagen */
+}
+.eliminar-btn {
+    display: none;
+    background-color: #ffcccc;
+    border: none;
+    color: #ff0000;
+    padding: 0 3px;
+    margin-left: 5px;
+}
+
+.ingrediente-checkbox:checked + .ingrediente,.tag-checkbox:checked + .tag {
+    background-color: #ffcccc;
+}
+
+.ingrediente-checkbox:checked + .ingrediente + .eliminar-btn,.tag-checkbox:checked + .tag + .eliminar-btn {
+    display: inline-block;
+}
+.contenedor3{
+    display: flex;
+}
+.buscados{
+    width: 59%;
+}
+.contenedor-formulario-buscar{
+    width: 33%;
+    margin-left: 1%;
+}
+
+.contenedor-formulario-buscar{
+	
+	font-family: 'Jost', sans-serif;
+	background: linear-gradient(to bottom, #2c2b30, #35353e, #0e0e18);
+    margin-right: 1%;
+}
+.contenedor-formulario-buscar form{
+    padding-top: 30px;
+}
+.contenedor-formulario-buscar form label{
+	color: #fff;
+	font-size: 1.5em;
+	justify-content: left;
+	display: flex;
+	font-weight:normal;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.contenedor-formulario-buscar form input{
+	width: 90%;
+	height: 30px;
+	background: #e0dede;
+	justify-content: center;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+    margin-top: 1%;
+}
+
+.contenedor-formulario-buscar form button{
+	width: 90%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	color: #fff;
+	background: green;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+.buscar-dificultad{
+    color: #fff;
+    margin-left: 5%;
+    margin-top: 5px;
+}
+.buscar-dificultad i{
+    font-size: xx-large;
+    margin-bottom: 15px;
+}
+
+/**** Nueva Receta****/
+
+.contenedor4{
+    display: flex;
+	background: linear-gradient(to bottom, #2c2b30, #35353e, #0e0e18);
+
+}
+
+.contenedor4 form{
+    width: 100%;
+    font-family: 'Jost', sans-serif;
+}
+
+.datos-formutario-nueva{
+    width: 33%;
+    margin-left: 1%;
+}
+
+.contenedor-formulario-nueva{
+	
+
+    margin-right: 1%;
+    display: flex;
+}
+.contenedor-formulario-nueva {
+    padding-top: 30px;
+}
+.contenedor-formulario-nueva label{
+	color: #fff;
+	font-size: 1.5em;
+	justify-content: left;
+	display: flex;
+	font-weight:normal;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.contenedor-formulario-nueva input{
+	width: 90%;
+	height: 30px;
+	background: #e0dede;
+	justify-content: center;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+    margin-top: 1%;
+}
+
+.contenedor-formulario-nueva button{
+	width: 90%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	color: #fff;
+	background: green;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+.buscar-dificultad{
+    color: #fff;
+    margin-left: 5%;
+    margin-top: 5px;
+}
+.buscar-dificultad i{
+    font-size: xx-large;
+}
+.contenedor-fotos-nuevas{
+    width: 80%;
+}
+.fotos-nuevas{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto; /* 3 columnas de igual tamaño */
+    /*grid-template-rows: repeat(2, 1fr);*/ /* 2 filas de igual tamaño */
+    grid-gap: 20px; /* espacio entre las celdas */
+    
+}
+.contenedor-subir-fotos img{
+    width: 100%;
+}
+
+.contenedor-subir-fotos textarea{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 5px;
+}
+.contenedor-nueva-elaboracion{
+    width: 90%;
+    margin-left: 5%;
+}
+
+.contenedor-nueva-elaboracion textarea{
+    width: 100%;
+    
+}
+
+
+/**** ACERCA DE***/
+
+.contenedor5{
+    width: 90%;
+    margin-bottom: 50px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+.info-contenedor{
+    display: flex;
+    border: 1px solid gray;
+}
+.info-nombre{
+    background-color: green;
+    color: black;
+    font-weight: bold;
+    padding: 1% 0% 1% 0%;
+    width: 20%;
+    padding-left: 2%;
+}
+.info-descripcion{
+    color:gray;
+    padding: 1% 0% 1% 0%;
+    width: 89.9%;
+    padding-left: 2%;
+  
+}
+.acerca-info-practica h2,.acerca-info-autores h2, .acerca-info-descripcion h2{
+    text-align: center;
+    padding: 1%;
+    background: gray;
+    border: 1px solid black;
+}
+.info-autores-contenedor{
+    display: flex;
+}
+.info-autor-practica{
+    display:block;
+    width: 100%;
+}
+
+.info-autor-practica .info-nombre{
+    width: 20%;
+}
+.info-practica-descripcion{
+    border: 1px solid gray;
+    padding: 2%;
+}
+
+/**** RECETA ****/
+.contenedor6{
+    width: 80%;
+    margin: auto;
+}
+.receta-info-autor {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+.receta-info-autor h2 {
+    padding: 1%;
+    background: gray;
+    border: 1px solid black;
+    padding-left: 2%;
+}
+
+.receta-top-container{
+    display: flex;
+}
+.receta-images-contenedor{
+    width: 40%;
+    border: 1px solid black;
+}
+
+.receta-images-contenedor h3, 
+.receta-info-etiquetas h3, 
+.receta-info-ingredientes h3,
+ .receta-elaboracion-container h3,
+ .receta-comentarios-container h3{
+    padding: 1%;
+    background: gray;
+    border: 1px solid black;
+    padding-left: 2%;
+}
+
+.receta-images-contenedor img{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+.receta-images-contenedor p{
+    padding: 1%;
+    background-color: darkgray;
+    border: 1px solid black;
+    width: 90%;
+    margin: auto;
+}
+
+.receta-images-desplazamiento-contenedor{
+    display: flex;
+    padding-left: 33%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.receta-images-desplazamiento-contenedor button{
+    width: 40px;
+    text-align: center;
+}
+.receta-images-desplazamiento-contenedor div{
+    text-align: center;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.receta-info-basica-contenedor, .receta-images-contenedor{
+    margin-top:15px;
+}
+.receta-info-basica-contenedor{
+    width: 58%;
+    margin-left: 2%;
+    
+}
+.receta-info-etiquetas, .receta-info-ingredientes{
+    border: 1px solid black;
+    margin-bottom: 20px;
+
+}
+.receta-elaboracion-container, .receta-comentarios-container{
+    margin-top: 20px;
+    border: 1px solid black;
+
+}
+.receta-elaboracion-container p{
+    padding: 2%;
+}
+.receta-comentarios-container{
+    margin-bottom: 30px;
+    padding-right: 1%;
+}
+
+.receta-comentario{
+    border: 1px solid black;
+    margin: 3%;
+    width: 96%;
+}
+
+.receta-comentario h4{
+    padding: 1%;
+    background: darkgray;
+    border: 1px solid black;
+    padding-left: 2%;
+}
+.receta-comentario p{
+    padding: 2%;
+}
+
+.receta-comentario-autor-contenedor{
+    background-color: rgb(143, 197, 143);
+    border: 1px solid black;
+    display: flex;
+}
+.receta-comentario-fecha, .receta-comentario-autor{
+    width: 50%;
+    padding: 3%;
+}
+.receta-comentario-autor{
+    text-align: right;
+}
+.receta-comentario input, .receta-comentario textarea{
+    width: 90%;
+    margin: auto;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+@media (max-width: 1500px){
+
+    /**** RESOLUCION MEDIA DETALLAS***/
+    nav ul{
+        
+        margin-left:10%;
+    }
+}
+.receta-cometario-advertencia h4{
+    text-align: center;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color:rgb(143, 197, 143);
+    width: 100%;
+    margin-top: 40px;
+    padding: 2%;
+}
+@media (max-width: 1300px){
+    /***  ORDENADOR DE PANTALLA BAJA RESOLUCION* ****/
+    
+    .elemento-menu a span{
+        display: none;
+
+    }
+    .enlace{
+        position: relative;
+        margin: auto;
+
+    }
+    .enlace-logo{
+        width: 100px;
+        
+    }
+
+    .enlace-logo-titulo{
+        width: 100px;
+    }
+
+    nav{
+        height: 210px;
+    }
+    nav ul{
+        float: none;
+        margin-left:27%;
+        margin-top: 40px;
+    }
+
+    /**** Articulos *****/
+    .contenedor-articulos{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 3 columnas de igual tamaño */
+        grid-template-rows: repeat(3, 1fr); /* 2 filas de igual tamaño */
+        grid-gap: 20px; /* espacio entre las celdas */
+    }
+    /**** NUEVAS***/
+    .fotos-nuevas{
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto; /* 3 columnas de igual tamaño */
+        /*grid-template-rows: repeat(2, 1fr);*/ /* 2 filas de igual tamaño */
+        grid-gap: 20px; /* espacio entre las celdas */
+    }    
+}
+@media (max-width: 1020px){
+    /******* TABLET ******/
+    .elemento-menu a span{
+        display: flex;
+        width: 120px;
+
+    }
+    .enlace{
+        position:absolute;
+        padding: 20px 50px;
+    }
+    .enlace-logo-titulo{
+        width: 80%;
+    }
+    .enlace h1{
+        font-size: 2rem;
+    }
+    .checkbtn{
+        display: block;
+    }
+    nav {
+        height: 120px;
+    }
+    nav ul{
+      
+        margin-left:0px;
+    }
+    nav > ul{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #2c3e50;
+        top: 150px;
+        left: -125%;
+        text-align: center;
+        transition: all .5s;
+    }
+    nav ul li{
+        display: block;
+        margin: 50px 0;
+       
+        width: 100%;
+        
+    }
+    nav ul li a{
+        font-size: 20px;
+        padding: 20px 48%;
+        margin-left: -4%;
+    }
+    li a:hover, li a.active{
+        background: #21618C;
+        color: #3BB272;
+    }
+    #check:checked ~ ul{
+        left:0;
+    }
+    /**** RECETA***/
+    .receta-top-container{
+        display: block;
+    }
+    .receta-images-contenedor{
+        width: 100%;
+    }
+    .receta-info-basica-contenedor{
+        width: 100%;
+        margin-left: 0%;
+    }
+}
+@media (max-width: 952px){
+    /*** TRANSICION MOVIL TABLET ***/
+    .enlace{
+        padding-left: 20px;
+    }
+    .enlace-logo-titulo{
+        width: 80%;
+    }
+    .enlace h1{
+        font-size: 2rem;
+    }
+    nav ul{
+      
+        margin-left:0px;
+    }
+    nav ul li a{
+        
+        font-size: 16px;
+    }
+    .elemento-menu a, .elemento-menu a.active, .elemento-menu a:hover{
+        display: flex;
+    }
+}
+@media (max-width: 858px){
+    /**** MENU MOVIL *****/
+
+    .enlace{
+        position:relative;
+        margin: auto;
+        height: 90px;
+        margin-left: 3%;
+        width: 60%;
+        display: flex;
+    }
+    .enlace-logo-titulo{
+        width: 80%;
+    }
+    .enlace h1{
+        font-size: 2rem;
+    }
+    .checkbtn{
+        display: block;
+    }
+    nav {
+        height: 120px;
+    }
+    nav ul{
+      
+        margin-left:0px;
+        
+    }
+    nav > ul{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #2c3e50;
+        top: 150px;
+        left: -125%;
+        text-align: center;
+        transition: all .5s;
+    }
+    
+    nav ul li{
+        
+        display: block;
+        margin: 50px 0;
+        
+        width: 100%;
+    }
+    nav ul li a{
+        font-size: 20px;
+        padding: 20px 48%;
+        margin-left: -8%;
+    }
+    li a:hover, li a.active{
+        background: #3BB272;
+        color: white;
+    }
+    #check:checked ~ ul{
+        left:0;
+    }
+
+    /**** Articulos *****/
+    .contenedor-articulos{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* 3 columnas de igual tamaño */
+        grid-template-rows: repeat(6, 1fr); /* 2 filas de igual tamaño */
+        grid-gap: 20px; /* espacio entre las celdas */
+    }
+    .footer-rrss, .footer-links{
+        width: 46%;
+
+    }
+    .footer-texto{
+        display: none;
+        width: 1%;
+    }
+
+    /**** BUSCAR ****/
+    .contenedor-formulario-buscar{
+        width: 48%;
+    }
+    .buscados{
+        width: 49%;
+    }
+
+    /**** NUEVAS***/
+    .contenedor-fotos-nuevas{
+        width: 47%;
+    }
+    .fotos-nuevas{
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto; /* 3 columnas de igual tamaño */
+            /*grid-template-rows: repeat(2, 1fr);*/ /* 2 filas de igual tamaño */
+        grid-gap: 20px; /* espacio entre las celdas */
+    }    
+    .datos-formutario-nueva{
+        width: 50%;
+        margin-left: 1%;
+    }
+    /**** RECETA***/
+    .receta-top-container{
+        display: block;
+    }
+    .receta-images-contenedor{
+        width: 100%;
+    }
+    .receta-info-basica-contenedor{
+        width: 100%;
+        margin-left: 0%;
+    }
+}
