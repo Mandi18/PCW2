@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
-        <link rel="icon" type="image/x-icon" href="img/icons/favicon/hamburguesa.png">
+        <link rel="icon" type="image/x-icon" href="img/hamburguesa.png">
         <title>Login</title>
     </head>
     <body>
@@ -51,11 +51,11 @@
         <div class="contenedor2">
             <div class="main">
                 <div class="login">
-                    <form onsubmit="hacerLogin(event)">
+                    <form>
                         <label>Login</label>
-                        <input type="text" name="usu" placeholder="Usuario" required autofocu>
-                        <input type="password" name="pwd" placeholder="Password" required>   
-                        <input type="submit" value="Enviar">
+                        <input type="email" name="email" placeholder="Email" required="required" autofocus>
+                        <input type="password" name="pswd" placeholder="Password" required="required">   
+                        <button>Login</button>
                     </form>
                     <div class="link-registro">
                         No tengo cuenta, <a  href="registro.html">Registrarse</a>
@@ -67,10 +67,9 @@
         <footer>
             <div>
                 <p>&copy;</p>
-                <time datetime="2024">2024</time>
+    <time datetime="2024">2024</time>
             </div>
             <a href="acerca.html">Contacto</a>
         </footer>
-        <script src="js/peticiones_HTTP.js"></script>
     </body>
 </html>

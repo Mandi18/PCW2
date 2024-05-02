@@ -227,13 +227,7 @@ article div a:hover {
 }
 
 /**** TOOLTIP ARTICULO ****/
-.tooltip h1{
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
-    width: 80%;
 
-}
   
 .tooltip .tooltiptext {
     visibility: hidden;
