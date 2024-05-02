@@ -169,25 +169,57 @@ function getRecetaFiltro({autor, nombre, ingrediente, etiqueta, dificultad, nume
 ***********************************************************/
 
 // Hacer el login del usuario
-function postLogin(evt){
+function hacerLogin( evt ) {
     evt.preventDefault();
 
-    const frm = evt.currentTarget,
-        chr = new XMLHttpRequest();
+    let frm = evt.currentTarget, //coge el formulario que he enviado
+        xhr = new XMLHttpRequest(),
         url = 'api/usuarios/login',
-        fd = new FormData(frm);
-
+        fd  = new FormData( frm ); //coge los datos que tiene el formulario
+        
+        console.log(fd);
+        
         xhr.open('POST', url, true);
         xhr.responseType = 'json';
+        xhr.onload = function() {
+            
+            let r = xhr.response;        
 
-        xhr.onload = () => {
-            let r = xhr.response;
-
-            if(r.CODIGO === 200){
-                //TODO:
+            if( r.CODIGO === 200 ) {
+                const {TOKEN, LOGIN, EMAIL, ULTIMO_ACCESO} = r;
+                const obj = {
+                    LOGIN,
+                    EMAIL,
+                    TOKEN,
+                    ULTIMO_ACCESO
+                };
+                sessionStorage.setItem('usuario', JSON.stringify(obj));
+                sessionStorage.setItem('token', r.TOKEN);
+                crearModalLogin(r);
+                //sessionStorage['datosUsu'] = JSON.stringify( r ); 
+            }else{
+                crearModalError(r);
             }
+        xhr.send( fd );
+    }
+}
+
+// Hacer el logout del usuario mandando la cabecera de Auth
+function hacerLogout(){
+    let u = getUserData();
+
+    const tokenAuth = construyeToken(u.LOGIN);
+    
+    return fetch('api/usuarios/logout', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": tokenAuth,
         }
+    }).then(res => res.json());
+}
 
-        
-
+// Dar de alta un nuevo usuario
+function darAltaUsuario(){
+    
 }

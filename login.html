@@ -51,11 +51,11 @@
         <div class="contenedor2">
             <div class="main">
                 <div class="login">
-                    <form>
+                    <form onsubmit="hacerLogin(event)">
                         <label>Login</label>
-                        <input type="email" name="email" placeholder="Email" required="required" autofocus>
-                        <input type="password" name="pswd" placeholder="Password" required="required">   
-                        <button>Login</button>
+                        <input type="text" name="usu" placeholder="Usuario" required autofocu>
+                        <input type="password" name="pwd" placeholder="Password" required>   
+                        <input type="submit" value="Enviar">
                     </form>
                     <div class="link-registro">
                         No tengo cuenta, <a  href="registro.html">Registrarse</a>
@@ -67,9 +67,10 @@
         <footer>
             <div>
                 <p>&copy;</p>
-    <time datetime="2024">2024</time>
+                <time datetime="2024">2024</time>
             </div>
             <a href="acerca.html">Contacto</a>
         </footer>
+        <script src="js/peticiones_HTTP.js"></script>
     </body>
 </html>

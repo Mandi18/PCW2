@@ -1,3 +1,40 @@
+function construyeToken(usuario){
+    // La línea siguiente genera un token cuando el login da CÓDIGO 200
+    const token = sessionStorage.getItem('token');
+    let tokenAuth = `${usuario}:${token}`;
+
+    return tokenAuth;
+}
+
+function getUserData() {
+    const session = sessionStorage.getItem('usuario');
+    const obj = JSON.parse(session);
+    return obj;
+}
+
+function crearModalLogin(r) {
+    let modal = creaPropiedadesModal();
+    modal.innerHTML = `
+        <h3>Usuario ${r.LOGIN} logueado correctamente</h3>
+        <p>Última vez conectado: ${r.ULTIMO_ACCESO}</p>
+        <button class="modal" onclick="cerrarModal({ redireccion:'index'})">Cerrar</button>
+    `;
+
+    document.body.appendChild(modal);
+    modal.showModal();
+}
+
+function crearModalError(r) {
+    let modal = creaPropiedadesModal();
+    modal.innerHTML = `
+        <h3>${r.DESCRIPCION}</h3>
+        <button onclick="cerrarModal({ focus: 'login' })">Cerrar</button>
+    `;
+
+    document.body.appendChild(modal);
+    modal.showModal();
+}
+
 function prepararFiltro({autor, nombre, ingrediente, etiqueta, dificultad, numeroReg, cantidadReg}){
 
     if(numeroReg !== undefined && cantidadReg !== undefined){
@@ -66,6 +103,6 @@ function prepararFiltro({autor, nombre, ingrediente, etiqueta, dificultad, numer
     return urlPeticion;
 }
 
-function isLogged(){
-    return sessionStorage.getItem('token') && sessionStorage.getItem('usuario');
-}
+// function isLogged(){
+//     return sessionStorage.getItem('token') && sessionStorage.getItem('usuario');
+// }
