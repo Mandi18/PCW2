@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="codigo1.js"></script>
+</head>
+<body>
+    <h1>Listado de recetas</h1>
+    <ul id="lista"></ul>
+    <button onclick="pedirRecetas()">Haz clic aquí</button>
+
+    <article>
+        <h2>Login:</h2>
+        <form onsubmit="hacerLogin( event );">
+            <div><label for="usu">Usuario:</label><input type="text" id="usu" name="usu" required></div>
+            <div><label for="pwd">Pwd:</label><input type="password" id="pwd" name="pwd" required></div>
+            <div>
+                <input type="submit">
+                <input type="reset">
+            </div>
+        </form>
+    </article>
+</body>
+</html>
