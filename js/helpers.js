@@ -93,9 +93,19 @@ async function creaRecetas(recetas) {
     const divContenedor = document.createElement('div');
     divContenedor.classList.add('contenedor-articulos');
     
-
+    const recetasCompletas = [];
+    
+    let i = 0;
     for (const rec of recetas.FILAS) {
-        const recetaCompleta = await getRecetas(rec.id);
+        if(i < 6){
+            const recetaCompleta = await getRecetas(rec.id);
+            recetasCompletas.push({ receta: recetaCompleta.FILAS[0], fecha: recetaCompleta.FILAS[0].fechaCreacion });
+        }
+        i++;
+       }
+    recetasCompletas.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+    for (let i = 0; i < recetasCompletas.length; i++) {
         const divArticulo = document.createElement('div');
         divArticulo.classList.add('articles-container');
 
@@ -105,19 +115,14 @@ async function creaRecetas(recetas) {
         divAdicional.classList.add('tooltip');
 
         const headerLink = document.createElement('a');
-        headerLink.href = `receta.html?id=${rec.id}`;
+        headerLink.href = `receta.html?id=${recetasCompletas[i].receta.id}`;
 
         const header = document.createElement('h2');
         header.classList.add('articles-title');
-        //header.title = recetaCompleta.FILAS[0].titulo;
-        header.textContent = recetaCompleta.FILAS[0].nombre;
-
-        const headerSpan = document.createElement('span');
-        headerSpan.textContent = recetaCompleta.FILAS[0].nombre;
-        headerSpan.classList.add('tooltiptext');
+        header.title = recetasCompletas[i].receta.nombre;
+        header.textContent = recetasCompletas[i].receta.nombre;
 
         headerLink.appendChild(header);
-        headerLink.appendChild(headerSpan);
         divAdicional.appendChild(headerLink);
 
         const headerBr = document.createElement('br');
@@ -130,22 +135,23 @@ async function creaRecetas(recetas) {
         autorStatic.style.whiteSpace = "pre";
 
         const autorSpan = document.createElement('span');
-        autorSpan.textContent = recetaCompleta.FILAS[0].autor; 
+        autorSpan.textContent = recetasCompletas[i].receta.autor; 
 
         const fecha = document.createElement('time');
-        fecha.dateTime = recetaCompleta.FILAS[0].fechaCreacion;
-        fecha.textContent = " " + recetaCompleta.FILAS[0].fechaCreacion;
+        fecha.dateTime = recetasCompletas[i].receta.fechaCreacion;
+        fecha.textContent = " " + recetasCompletas[i].receta.fechaCreacion;
 
         divAdicional2.appendChild(autorStatic);
         autorStatic.appendChild(autorSpan);
         autorStatic.appendChild(fecha);
 
         const imgLink = document.createElement('a');
-        imgLink.href = `receta.html?id=${rec.id}`;
+        imgLink.href = `receta.html?id=${recetasCompletas[i].receta.id}`;
 
         const imgRec = document.createElement('img');
-        imgRec.src = '/pcw/practica2/fotos/' + rec.imagen;
-        imgRec.alt = 'Foto de la receta: ' + recetaCompleta.FILAS[0].nombre;
+        //console.log(recetaCompleta);
+        imgRec.src = '/pcw/practica2/fotos/' + recetasCompletas[i].receta.imagen;
+        imgRec.alt = 'Foto de la receta: ' + recetasCompletas[i].receta.nombre;
 
         imgLink.appendChild(imgRec);
 
@@ -160,7 +166,7 @@ async function creaRecetas(recetas) {
         personaIcon.setAttribute('aria-hidden', 'true');
         personaSpan.style.whiteSpace = "pre";
         personaSpan.appendChild(personaIcon);
-        personaSpan.appendChild(document.createTextNode(" " + recetaCompleta.FILAS[0].personas + " Personas "));
+        personaSpan.appendChild(document.createTextNode(" " + recetasCompletas[i].receta.personas + " Personas "));
 
         const difSpan = document.createElement('span');
         difSpan.classList.add('receta-info-dificultad');
@@ -169,21 +175,21 @@ async function creaRecetas(recetas) {
         const difIcon2 = document.createElement('i');
         const difIcon3 = document.createElement('i');
 
-        if (recetaCompleta.FILAS[0].dificultad == 0) {
+        if (recetasCompletas[i].receta.dificultad == 0) {
             difIcon1.classList.add('far', 'fa-star');
             difIcon1.setAttribute('aria-hidden', 'true');
             difIcon2.classList.add('far', 'fa-star');
             difIcon2.setAttribute('aria-hidden', 'true');
             difIcon3.classList.add('far', 'fa-star');
             difIcon3.setAttribute('aria-hidden', 'true');
-        } else if (recetaCompleta.FILAS[0].dificultad == 1) {
+        } else if (recetasCompletas[i].receta.dificultad == 1) {
             difIcon1.classList.add('fas', 'fa-star');
             difIcon1.setAttribute('aria-hidden', 'true');
             difIcon2.classList.add('far', 'fa-star');
             difIcon2.setAttribute('aria-hidden', 'true');
             difIcon3.classList.add('far', 'fa-star');
             difIcon3.setAttribute('aria-hidden', 'true');
-        } else if (recetaCompleta.FILAS[0].dificultad == 2) {
+        } else if (recetasCompletas[i].receta.dificultad == 2) {
             difIcon1.classList.add('fas', 'fa-star');
             difIcon1.setAttribute('aria-hidden', 'true');
             difIcon2.classList.add('fas', 'fa-star');
@@ -212,7 +218,7 @@ async function creaRecetas(recetas) {
         timepoIcon.setAttribute('aria-hidden', 'true');
 
         tiempoSpan.appendChild(timepoIcon);
-        tiempoSpan.appendChild(document.createTextNode(recetaCompleta.FILAS[0].tiempo + " min"));
+        tiempoSpan.appendChild(document.createTextNode(recetasCompletas[i].receta.tiempo + " min"));
 
         divAdicional3.appendChild(difSpan);
         divAdicional3.appendChild(personaSpan);
