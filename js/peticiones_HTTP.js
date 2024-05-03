@@ -201,9 +201,16 @@ function mostrarMensajeLogin(fecha){
     var html;
 
     div.id = 'mensaje-modal';
+    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.top = '50%';
+    div.style.left = '50%';
+    div.style.transform = 'translate(-50%, -50%)';
+    div.style.background = 'white';
+    div.style.padding = '20px';
+    div.style.border = '1px solid black';
 
     html = `<article>
-        <h2>Ha iniciado sesion</h2>
+        <h2>Ha iniciado sesión</h2>
         <p>Último acceso: `+fecha+`</p>
         <button onclick="window.location.href = 'index.html'">Aceptar</button>
         </article>`;
@@ -218,6 +225,13 @@ function mostrarMensajeError(){
     var html;
 
     div.id = 'mensaje-modal';
+    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.top = '50%';
+    div.style.left = '50%';
+    div.style.transform = 'translate(-50%, -50%)';
+    div.style.background = 'white';
+    div.style.padding = '20px';
+    div.style.border = '1px solid black';
 
     html = `<article>
         <h2>Login incorrecto</h2>
