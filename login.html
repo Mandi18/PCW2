@@ -31,14 +31,7 @@
                     </div>
                 </div>
         
-                <ul>
-                    <li><div class="elemento-menu" ><a class="active" href="index.html"><i class="fas fa-home"></i><span>Inicio</span></a></div></li>
-                    <li><div class="elemento-menu" ><a  href="buscar.html"><i class="fas fa-search"></i><span>Buscar</span></a></div></li>
-                    <li><div class="elemento-menu" ><a  href="nueva.html"><i class="fas fa-plus"></i><span>Nueva</span></a></div></li>
-                    <li><div class="elemento-menu" ><a  href="login.html"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></div></li>
-                    <li><div class="elemento-menu" ><a  href="registro.html"><i class="fas fa-user-plus"></i><span>Registro</span></a></div></li>
-                    <li><div class="elemento-menu" ><a  href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div></li>
-                </ul>
+                <ul id="nave"></ul>
         
             </nav>
         </header>
@@ -51,11 +44,11 @@
         <div class="contenedor2">
             <div class="main">
                 <div class="login">
-                    <form>
+                    <form onsubmit="return hacerLogin(this)">
                         <label>Login</label>
-                        <input type="email" name="email" placeholder="Email" required="required" autofocus>
-                        <input type="password" name="pswd" placeholder="Password" required="required">   
-                        <button>Login</button>
+                        <input type="text" name="usu" placeholder="Usuario" required autofocu>
+                        <input type="password" name="pwd" placeholder="Password" required>   
+                        <input type="submit" value="Iniciar Sesión" class="btn">
                     </form>
                     <div class="link-registro">
                         No tengo cuenta, <a  href="registro.html">Registrarse</a>
@@ -67,9 +60,11 @@
         <footer>
             <div>
                 <p>&copy;</p>
-    <time datetime="2024">2024</time>
+                <time datetime="2024">2024</time>
             </div>
             <a href="acerca.html">Contacto</a>
         </footer>
+        <script src="js/peticiones_HTTP.js"></script>
+        <script src="js/helpers.js"></script>
     </body>
 </html>

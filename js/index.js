@@ -3,6 +3,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const recetas = await getRecetaFiltro({ registrosPorPagina: 6 });
 
-    creaRecetas(recetas);
-
+    let recetasActuales = await creaRecetas(recetas);
+    actualizaPaginacion(recetasActuales, recetas);
 });

@@ -59,7 +59,6 @@ function getEtiquetas() {
 
 // Devuelve toda la información de la receta con el ID indicado
 function getRecetas(id){
-
     const url = `api/recetas/${id}`;
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
@@ -171,25 +170,83 @@ function getRecetaFiltro({autor, nombre, ingrediente, etiqueta, dificultad, nume
 ***********************************************************/
 
 // Hacer el login del usuario
-function postLogin(evt){
-    evt.preventDefault();
+function hacerLogin(form){  
+    
+    let url = 'api/usuarios/login',  
+        fdata = new FormData(form),
+        xhr = new XMLHttpRequest(); 
 
-    const frm = evt.currentTarget,
-        chr = new XMLHttpRequest();
-        url = 'api/usuarios/login',
-        fd = new FormData(frm);
+        xhr.open('POST',url,true); 
+        console.log("aqui")
+        xhr.onload=function(){
 
-        xhr.open('POST', url, true);
-        xhr.responseType = 'json';
+            let user = JSON.parse(xhr.responseText);  
+            console.log(user);
 
-        xhr.onload = () => {
-            let r = xhr.response;
+            if(user.RESULTADO === 'OK'){  
 
-            if(r.CODIGO === 200){
-                //TODO:
+                sessionStorage['usuario'] = xhr.responseText;
+                console.log(user.ULTIMO_ACCESO);
+                mostrarMensajeLogin(user.ULTIMO_ACCESO);
+            }else{
+                mostrarMensajeError();
             }
+        };
+        xhr.send(fdata);
+    return false;  
+}
+
+function mostrarMensajeLogin(fecha){ 
+    let div = document.createElement("div");
+    var html;
+
+    div.id = 'mensaje-modal';
+
+    html = `<article>
+        <h2>Ha iniciado sesion</h2>
+        <p>Último acceso: `+fecha+`</p>
+        <button onclick="window.location.href = 'index.html'">Aceptar</button>
+        </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+function mostrarMensajeError(){ 
+    let div = document.createElement("div");
+    var html;
+
+    div.id = 'mensaje-modal';
+
+    html = `<article>
+        <h2>Login incorrecto</h2>
+        <p>Usuario o contraseña no validos</p>
+        <button onclick="document.getElementById('mensaje-modal').remove();">Aceptar</button>
+    </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+// Hacer el logout del usuario mandando la cabecera de Auth
+function hacerLogout(){
+    let u = getUserData();
+    sessionStorage.clear();
+
+    const tokenAuth = construyeToken(u.LOGIN);
+    
+    return fetch('api/usuarios/logout', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": tokenAuth,
         }
+    }).then(res => res.json());
+}
 
-        
-
+// Dar de alta un nuevo usuario
+function darAltaUsuario(){
+    
 }
