@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html lang="es">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
         <link rel="icon" type="image/x-icon" href="img/hamburguesa.png">
+        <!-- Ubicación de los scripts -->
+        <script src="js/peticiones_HTTP.js"></script>
+        <script src="js/helpers.js"></script>
         <title>Inicio</title>
     </head>
     <body>
+        <script>maximoRecetas()</script>
         <header>
             <nav>
                 <input type="checkbox" id="check">
@@ -42,9 +46,12 @@
             <main>
                 <h2>Últimas Publicaciones</h2>
                 <hr>
-                <div id="recetas"></div>
-                <div class="paginacion">
-                </div>	
+                <script>getRecetas()</script>
+                <div id="recetas">
+                    <!-- Dentro de esto se mostrarán las recetas generadas por el script de arriba -->
+                </div> 
+                <script>numRecetas(0)</script>
+                <div id="paginacion" class="paginacion"></div>	
             </main>
         </div>
         <footer>
@@ -55,9 +62,5 @@
             <a href="#top" id="btnArriba"><i class="fas fa-chevron-up"></i></a>
             <a href="acerca.html">Contacto</a>
         </footer>
-        <!-- Ubicación de los scripts -->
-        <script src="js/helpers.js"></script>
-        <script src="js/index.js"></script>
-        <script src="js/peticiones_HTTP.js"></script>
     </body>
 </html>

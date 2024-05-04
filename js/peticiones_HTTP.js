@@ -21,6 +21,12 @@
 */
 
 /***********************************************************
+                        VARIABLES
+***********************************************************/
+var maxRecetas = 0;
+
+
+/***********************************************************
                         PETICIONES GET
 ***********************************************************/
 
@@ -57,10 +63,12 @@ function getEtiquetas() {
     });
 }
 
-// Devuelve toda la información de la receta con el ID indicado
-function getRecetas(id){
-    let url = 'api/recetas';
+// Devuelve toda la información de la receta
+function getRecetas(){
+    let url = 'api/recetas',
     xhr = new XMLHttpRequest();
+
+    let cantidad = 6;
 
     url += '?reg=0&cant='+ cantidad; // Carga una cantidad de recetas
     xhr.open('GET', url, true);
@@ -76,42 +84,65 @@ function getRecetas(id){
                 <div class="articles-container">
                 <article>
                     <div class="tooltip">
-                        <a href="receta.html"><h2 class="articles-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2></a>
-                        <span class="tooltiptext">Pizza vegetariana italiana casera, echa con ingredientes finos</span>
+                        <a href="receta.html?id=${receta.id}"><h2 class="articles-title">${receta.nombre}</h2></a>
+                        <span class="tooltiptext">${receta.nombre}</span>
                     </div><br>
-                    <div class="article-autor">
-                        <h3>Autor: <span>Rosmery Jimenez Gonzales</span></h3>
-                        <time datetime = "2023-03-02">2023-03-02</time>
-                    </div>
-                    <a href="receta.html"><img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" ></a>
+                    <a href="receta.html"><img src="fotos/${receta.imagen}" alt="${receta.nombre}" class="img-receta"></a>
 
                     <div class="receta-info">
-                        <span   class="receta-info-personas">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                            4
-                            Personas
-
+                        <span class="receta-info-personas">
+                        Personas: ${receta.personas} 
+                        <i class="fa fa-users" aria-hidden="true"></i>
                         </span>
-                        <span   class="receta-info-dificultad">
+                        <span class="receta-info-dificultad">
+                        Dificultad: ${receta.dificultad}
                             <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-
-                            Dificultad
-
                         </span>
-                        <span   class="receta-info-tiempo">
+                        <span class="receta-info-tiempo">
+                        Tiempo: ${receta.tiempo} min
                             <i class="fa fa-clock-o" aria-hidden="true"></i>
-                            600
-                            min
                         </span>
                     </div>
                 </article>	
-            </div>
-                `
-            })
+                </div>
+                `;
+            });
+            numRecetas(numFilas.length);
+            document.querySelector('#recetas').innerHTML = html;
         }
     }
+    xhr.send();
+}
+
+function maximoRecetas(){
+    let url = 'api/recetas',
+    xhr = new XMLHttpRequest();
+
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        let r = xhr.response;
+        maxRecetas += r.FILAS.length;
+    }
+    xhr.send();
+}
+
+function numRecetas(filas){
+    let url = 'api/recetas',
+    xhr = new XMLHttpRequest();
+
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        let html = '';
+        html += `
+        <article class="index.html">
+        <h3> Mostrando ${filas} de ${maxRecetas} recetas.</h3>
+        </article>
+        `
+        document.querySelector('#paginacion').innerHTML = html;
+    }
+    xhr.send();
 }
 
 //Devuelve las recetas cuyo autor sea, o contenga, el texto {AUTOR} en el campo autor
