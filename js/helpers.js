@@ -1,3 +1,8 @@
+'use strict'
+
+/*******************************************************
+                        CÓDIGO
+*******************************************************/
 window.onload = function(){
     if(sessionStorage['usuario']){ //está logueado
         console.log("holi");
@@ -445,4 +450,20 @@ async function creaRecetas(recetas) {
 
     divPubs.appendChild(divContenedor);
     return recetasCompletas.length;
+}
+
+
+
+/*******************************************************
+                        MODALES
+*******************************************************/
+function crearModalRegistro(r) {
+    let modal = creaPropiedadesModal();
+    modal.innerHTML = `
+        <h3>Usuario ${r.LOGIN} registrado correctamente</h3>
+        <button class="modal" onclick="cerrarModal({ redireccion:'login'})">Cerrar</button>
+    `;
+
+    document.body.appendChild(modal);
+    modal.showModal();
 }

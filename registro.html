@@ -44,13 +44,18 @@
         <div class="contenedor2">
             <div class="main">
                 <div class="login">
-                    <form method="POST" autocomplete="on">
-                        <label>Registrarse</label>
-                        <input type="text" name="cname" placeholder="Name" pattern="[A-Za-z][A-Za-z0-9]*" minlength="4" maxlength="20" required="required" autofocus>
-                        <input type="email" name="email" placeholder="Email" required="required">
-                        <input type="password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.-]+$" minlength="4" maxlength="20" required="required">  
-                        <input type="password" name="password2" placeholder="Confirmar">   
-                        <button>Registrarse</button>
+                    <form onsubmit="darAltaUsuario(event)" autocomplete="on">
+                        <label>Registrarse</p></label>
+                        <input type="text" id="nombre" name="cname" placeholder="Name" pattern="[A-Za-z][A-Za-z0-9]*" minlength="4" maxlength="20" required autofocus onblur="validarUsuario()">
+                        <input type="email" name="email" placeholder="Email" required>
+                        <div id="registro1">
+                            <input type="password" id="password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.-]+$" minlength="4" maxlength="20" required>  
+                        </div>
+                        <div id="registro2">
+                            <input type="password" id="password2" name="password2" placeholder="Confirmar" oninput="validarContrasena()">   
+                        </div>
+                        <input id="submit" type="submit" value="Enviar">
+                        <p for="login" id="msgLogin">
                     </form>
                     <div class="link-registro">
                     Ya tengo cuenta, <a  href="login.html">Login</a>
@@ -66,6 +71,7 @@
             </div>
             <a href="acerca.html">Contacto</a>
         </footer>
+        <script src="js/registro.js"></script>
         <script src="js/helpers.js"></script>
         <script src="js/peticiones_HTTP.js"></script>
     </body>

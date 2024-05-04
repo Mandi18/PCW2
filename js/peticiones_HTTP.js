@@ -25,7 +25,7 @@
 ***********************************************************/
 
 // Busca si hay disponibilidad del Login
-function getDisponibilidadLogin(){
+function getDisponibilidadLogin(login){
     const url = `api/usuarios/${login}`;
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
@@ -261,6 +261,21 @@ function hacerLogout(){
 }
 
 // Dar de alta un nuevo usuario
-function darAltaUsuario(){
-    
+function darAltaUsuario(evt){
+    evt.preventDefault();
+
+    const frm = evt.currentTarget,
+    xhr = new XMLHttpRequest(),
+    url = 'api/usuarios/registro',
+    fd = new FormData(frm);
+
+    xhr.open('POST', url, true);
+    xhr.responseType = 'json';
+
+    xhr.onload = () => {
+        let r = xhr,response;
+        if(r.CODIGO === 201){
+            crearModalRegistro(r);
+        }
+    }
 }
