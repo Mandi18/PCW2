@@ -81,7 +81,6 @@ function getRecetas(){
             let numFilas = r.FILAS;
             r.FILAS.forEach(function(receta) {
                 html += `
-                <div class="articles-container">
                 <article>
                     <div class="tooltip">
                         <a href="receta.html?id=${receta.id}"><h2 class="articles-title">${receta.nombre}</h2></a>
@@ -103,12 +102,11 @@ function getRecetas(){
                             <i class="fa fa-clock-o" aria-hidden="true"></i>
                         </span>
                     </div>
-                </article>	
-                </div>
+                </article>
                 `;
             });
             numRecetas(numFilas.length);
-            document.querySelector('#recetas').innerHTML = html;
+            document.querySelector('#contenedor-articulos').innerHTML = html;
         }
     }
     xhr.send();

@@ -159,9 +159,8 @@ li >div >a > span {
 
 /**** CSS POST INDEX***/
  /* Article container lo hare para que se divida según el número de fotos que hay con javascript para evitar los espacios en blanco*/
-.articles-container {
+#recetas {
     width: 100%;
-
 }
   
 /* Estilo para cada artículo */
