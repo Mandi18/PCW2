@@ -1,12 +1,6 @@
 'use strict'
 
 /*******************************************************
-                        FUNCIONES
-*******************************************************/
-var pass_puesto = false
-
-
-/*******************************************************
                         CÓDIGO
 *******************************************************/
 async function validarUsuario(){
@@ -35,24 +29,20 @@ async function validarUsuario(){
     return loginDisponible;
 }
 
-function validarContrasena(){
-    // Uso de pass_puesto que es una variable creada arriba de todo el código
-    let psw1 = document.getElementById('password').value;
-    let psw2 = document.getElementById('password2').value;
-    iguales = true;;
-    if(psw1 != psw2){
-        if(!pass_puesto){
-            let aviso = document.createElement("span");
-            aviso.id = "aviso";
-            aviso.innerHTML = "Las contraseñas no coinciden";
-            document.getElementById('registro2').appendChild(aviso);
-            iguales = false;
-            pass_puesto = true;
-        }
+async function validarContrasena(){
+    const psw1 = document.getElementById('password'),
+    psw2 = document.getElementById('password2'),
+    submitBtn = document.getElementById('submit'),
+    mensaje = document.getElementById("msgLogin"),
+    iguales = psw1.value === psw2.value;
+
+    if(iguales){
+        mensaje.textContent = "";
+        submitBtn.disabled = false;
     }else{
-        if(pass_puesto){
-            document.getElementById('aviso').remove();
-            pass_puesto = false;
-        }
+        mensaje.style.cssText = "color:red; margin-left:170px; font-size:19px";
+        mensaje.textContent = "Las contraseñas no coinciden";
+        submitBtn.disabled = true;
     }
+    return iguales;
 }

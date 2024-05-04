@@ -46,10 +46,10 @@
                 <div class="login">
                     <form onsubmit="darAltaUsuario(event)" autocomplete="on">
                         <label>Registrarse</p></label>
-                        <input type="text" id="nombre" name="cname" placeholder="Name" pattern="[A-Za-z][A-Za-z0-9]*" minlength="4" maxlength="20" required autofocus onblur="validarUsuario()">
+                        <input type="text" id="nombre" name="cname" placeholder="Name" pattern="A-Za-z][A-Za-z0-9]*" minlength="4" maxlength="20" required autofocus onblur="validarUsuario()">
                         <input type="email" name="email" placeholder="Email" required>
                         <div id="registro1">
-                            <input type="password" id="password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.-]+$" minlength="4" maxlength="20" required>  
+                            <input type="password" id="password" name="password" placeholder="Password" pattern="[a-zA-Z0-9_\-.]+" minlength="4" maxlength="20" required oninput="validarContrasena()">  
                         </div>
                         <div id="registro2">
                             <input type="password" id="password2" name="password2" placeholder="Confirmar" oninput="validarContrasena()">   
