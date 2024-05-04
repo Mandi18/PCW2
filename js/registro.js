@@ -4,7 +4,7 @@
                         CÓDIGO
 *******************************************************/
 async function validarUsuario(){
-    const login = document.getElementById('nombre'),
+    const login = document.getElementById('usu'),
     loginMsg = document.getElementById('msgLogin'),
     submitBtn = document.getElementById('submit');
 
@@ -30,8 +30,8 @@ async function validarUsuario(){
 }
 
 async function validarContrasena(){
-    const psw1 = document.getElementById('password'),
-    psw2 = document.getElementById('password2'),
+    const psw1 = document.getElementById('pwd'),
+    psw2 = document.getElementById('pwd2'),
     submitBtn = document.getElementById('submit'),
     mensaje = document.getElementById("msgLogin"),
     iguales = psw1.value === psw2.value;

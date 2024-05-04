@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html lang="es">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,9 +30,9 @@
                         </a>
                     </div>
                 </div>
-        
+                
                 <ul id="nave"></ul>
-        
+                
             </nav>
         </header>
         
@@ -45,20 +45,20 @@
             <div class="main">
                 <div class="login">
                     <form onsubmit="darAltaUsuario(event)" autocomplete="on">
-                        <label>Registrarse</p></label>
-                        <input type="text" id="nombre" name="cname" placeholder="Name" pattern="A-Za-z][A-Za-z0-9]*" minlength="4" maxlength="20" required autofocus onblur="validarUsuario()">
-                        <input type="email" name="email" placeholder="Email" required>
+                        <label>Registrarse</label>
+                        <input type="text" id="usu" name="usu" placeholder="Name" minlength="4" maxlength="20" required autofocus onblur="validarUsuario()">
                         <div id="registro1">
-                            <input type="password" id="password" name="password" placeholder="Password" pattern="[a-zA-Z0-9_\-.]+" minlength="4" maxlength="20" required oninput="validarContrasena()">  
+                            <input type="password" id="pwd" name="pwd" placeholder="Password" minlength="4" maxlength="20" required oninput="validarContrasena()">  
                         </div>
                         <div id="registro2">
-                            <input type="password" id="password2" name="password2" placeholder="Confirmar" oninput="validarContrasena()">   
+                            <input type="password" id="pwd2" name="pwd2" placeholder="Confirmar" oninput="validarContrasena()">   
                         </div>
-                        <input id="submit" type="submit" value="Enviar">
-                        <p for="login" id="msgLogin">
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <input type="submit" id="submit" value="Enviar">
+                        <p for="login" id="msgLogin"></p>
                     </form>
                     <div class="link-registro">
-                    Ya tengo cuenta, <a  href="login.html">Login</a>
+                        Ya tengo cuenta, <a  href="login.html">Login</a>
                     </div>
                 </div>
             </div>

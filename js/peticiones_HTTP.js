@@ -196,54 +196,6 @@ function hacerLogin(form){
     return false;  
 }
 
-function mostrarMensajeLogin(fecha){ 
-    let div = document.createElement("div");
-    var html;
-
-    div.id = 'mensaje-modal';
-    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
-    div.style.top = '50%';
-    div.style.left = '50%';
-    div.style.transform = 'translate(-50%, -50%)';
-    div.style.background = 'white';
-    div.style.padding = '20px';
-    div.style.border = '1px solid black';
-
-    html = `<article>
-        <h2>Ha iniciado sesión</h2>
-        <p>Último acceso: `+fecha+`</p>
-        <button onclick="window.location.href = 'index.html'">Aceptar</button>
-        </article>`;
-
-    div.innerHTML = html;
-
-    document.body.appendChild(div);
-}
-
-function mostrarMensajeError(){ 
-    let div = document.createElement("div");
-    var html;
-
-    div.id = 'mensaje-modal';
-    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
-    div.style.top = '50%';
-    div.style.left = '50%';
-    div.style.transform = 'translate(-50%, -50%)';
-    div.style.background = 'white';
-    div.style.padding = '20px';
-    div.style.border = '1px solid black';
-
-    html = `<article>
-        <h2>Login incorrecto</h2>
-        <p>Usuario o contraseña no validos</p>
-        <button onclick="document.getElementById('mensaje-modal').remove();">Aceptar</button>
-    </article>`;
-
-    div.innerHTML = html;
-
-    document.body.appendChild(div);
-}
-
 // Hacer el logout del usuario mandando la cabecera de Auth
 function hacerLogout(){
     let u = getUserData();
@@ -261,21 +213,25 @@ function hacerLogout(){
 }
 
 // Dar de alta un nuevo usuario
-function darAltaUsuario(evt){
+function darAltaUsuario(evt) {
     evt.preventDefault();
 
-    const frm = evt.currentTarget,
-    xhr = new XMLHttpRequest(),
-    url = 'api/usuarios/registro',
-    fd = new FormData(frm);
+    let url = 'api/usuarios/registro',
+        xhr = new XMLHttpRequest(),
+        frm = evt.currentTarget, // formulario
+        fd = new FormData(frm);
 
     xhr.open('POST', url, true);
     xhr.responseType = 'json';
+    xhr.onload = function() {
+        let r = xhr.response;
 
-    xhr.onload = () => {
-        let r = xhr,response;
-        if(r.CODIGO === 201){
-            crearModalRegistro(r);
+        if (r.CODIGO === 201) {
+            sessionStorage['usuario'] = JSON.stringify(r);
+            mostrarMensajeRegistro();
+        }else{
+            mostrarMensajeError();
         }
     }
+    xhr.send(fd);
 }

@@ -5,7 +5,6 @@
 *******************************************************/
 window.onload = function(){
     if(sessionStorage['usuario']){ //está logueado
-        console.log("holi");
         var navegacion = document.getElementById("nave");
         let html = `
         <li><div class="elemento-menu" ><a class="active" href="index.html"><i class="fas fa-home"></i><span>Inicio</span></a></div></li>
@@ -457,13 +456,73 @@ async function creaRecetas(recetas) {
 /*******************************************************
                         MODALES
 *******************************************************/
-function crearModalRegistro(r) {
-    let modal = creaPropiedadesModal();
-    modal.innerHTML = `
-        <h3>Usuario ${r.LOGIN} registrado correctamente</h3>
-        <button class="modal" onclick="cerrarModal({ redireccion:'login'})">Cerrar</button>
-    `;
+function mostrarMensajeLogin(fecha){ 
+    let div = document.createElement("div");
+    var html;
 
-    document.body.appendChild(modal);
-    modal.showModal();
+    div.id = 'mensaje-modal';
+    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.top = '50%';
+    div.style.left = '50%';
+    div.style.transform = 'translate(-50%, -50%)';
+    div.style.background = 'white';
+    div.style.padding = '20px';
+    div.style.border = '1px solid black';
+
+    html = `<article>
+        <h2>Ha iniciado sesión</h2>
+        <p>Último acceso: `+fecha+`</p>
+        <button onclick="window.location.href = 'index.html'">Aceptar</button>
+        </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+function mostrarMensajeRegistro() {
+    let div = document.createElement("div");
+    var html;
+
+    div.id = 'mensaje-modal';
+    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.top = '50%';
+    div.style.left = '50%';
+    div.style.transform = 'translate(-50%, -50%)';
+    div.style.background = 'white';
+    div.style.padding = '20px';
+    div.style.border = '1px solid black';
+
+    html = `<article>
+        <h2>Se ha registrado correctamente</h2>
+        <button onclick="window.location.href = 'login.html'">Aceptar</button>
+    </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+function mostrarMensajeError(){ 
+    let div = document.createElement("div");
+    var html;
+
+    div.id = 'mensaje-modal';
+    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.top = '50%';
+    div.style.left = '50%';
+    div.style.transform = 'translate(-50%, -50%)';
+    div.style.background = 'white';
+    div.style.padding = '20px';
+    div.style.border = '1px solid black';
+
+    html = `<article>
+        <h2>Error</h2>
+        <p>Campos incorrectos</p>
+        <button onclick="document.getElementById('mensaje-modal').remove();">Aceptar</button>
+    </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
 }
