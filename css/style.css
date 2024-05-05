@@ -216,12 +216,12 @@ article time{
     text-overflow: ellipsis;      
 }
 
-article div a {
+article div a, div h2 a{
     text-decoration: none;
     transition: color 0.3s ease-in-out;
     color: #333;
 }
-article div a:hover {
+article div a:hover, .memato:hover{
     color: #3BB272;
 }
 

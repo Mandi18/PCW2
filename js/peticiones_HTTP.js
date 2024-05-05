@@ -164,6 +164,22 @@ function getRecetaID(id){
     });
 }
 
+//Devuelve las fotos de la receta por ID
+function getRecetaFotos(id){
+    const url = `api/recetas/${id}/fotos`;
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            let fotos = xhr.response;
+            resolve(fotos);
+        }
+        xhr.send();
+    });
+}
+
 //Devuelve las recetas cuyo autor sea, o contenga, el texto {AUTOR} en el campo autor
 function getRecetaFiltro({autor, nombre, ingrediente, etiqueta, dificultad, numeroReg, cantidadReg}){
     //Recogemos la url desde el método de los helpers, pasándole por parámetro lo mismo que le hemos pasado a la función
