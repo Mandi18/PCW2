@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-    <html lang="es">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="js/recetas.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
@@ -12,7 +11,7 @@
         <link rel="icon" type="image/x-icon" href="img/hamburguesa.png">
         <title>Inicio</title>
     </head>
-    <body onload="mostrarInfoReceta();">
+    <body>
         <header>
             <nav>
                 <input type="checkbox" id="check">
@@ -31,16 +30,16 @@
                         </a>
                     </div>
                 </div>
-        
+                
                 <ul id="nave"></ul>
-        
+                
             </nav>
         </header>
         
         <div class="page-title-container">
             <h2 class="page-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2>
         </div>
-
+        
         <div class="contenedor6">
             <div class="receta-info-autor">
                 <div class="receta-autor">
@@ -81,7 +80,7 @@
                             <li><a href="buscar.html">Pasta</a></li>
                             <li><a href="buscar.html">Comida Italiana</a></li>        
                         </ul>
-
+                        
                     </div>
                     <div class="receta-info-ingredientes">
                         <h3>Ingredientes</h3>
@@ -90,7 +89,7 @@
                             <li>200 militros de aciete</li>   
                             <li>queso para pizzas</li>       
                         </ul>
-
+                        
                     </div>
                 </div>
             </div>
@@ -156,11 +155,12 @@
         <footer>
             <div>
                 <p>&copy;</p>
-    <time datetime="2024">2024</time>
+                <time datetime="2024">2024</time>
             </div>
             <a href="acerca.html">Contacto</a>
         </footer>
+        <script src="js/receta.js"></script>
         <script src="js/helpers.js"></script>
         <script src="js/peticiones_HTTP.js"></script>
     </body>
-</html>
+    </html>
