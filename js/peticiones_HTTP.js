@@ -24,6 +24,7 @@
                         VARIABLES
 ***********************************************************/
 var maxRecetas = 0;
+var recetas_actuales = 0;
 
 
 /***********************************************************
@@ -64,13 +65,12 @@ function getEtiquetas() {
 }
 
 // Devuelve toda la información de la receta
-function getRecetas(){
+function getRecetas(cantidad){
     let url = 'api/recetas',
     xhr = new XMLHttpRequest();
+    
+    url += '?reg=0&cant='+ cantidad;
 
-    let cantidad = 6;
-
-    url += '?reg=0&cant='+ cantidad; // Carga una cantidad de recetas
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
     xhr.onload = function(){
@@ -141,6 +141,11 @@ function numRecetas(filas){
         document.querySelector('#paginacion').innerHTML = html;
     }
     xhr.send();
+}
+
+function mostrarMas(mas){
+    recetas_actuales += mas;
+    getRecetas(recetas_actuales);
 }
 
 //Devuelve las recetas cuyo autor sea, o contenga, el texto {AUTOR} en el campo autor

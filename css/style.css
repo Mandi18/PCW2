@@ -273,7 +273,7 @@ article div a:hover {
     margin-right: 5%;
 }
 
-.paginacion{
+.paginacion, .mas{
     width: 60%;
     margin: auto;
     display: inline-block;

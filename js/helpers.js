@@ -23,6 +23,16 @@ window.onload = function(){
         `;
         navegacion.innerHTML = html;
     }
+
+    if(sessionStorage['usuario'] == null){
+        if(window.location.href === "http://localhost/pcw/PCW2/nueva.html"){
+            window.location.replace("index.html");
+        }
+    }else{
+        if(window.location.href === "http://localhost/pcw/PCW2/registro.html" || window.location.href === "http://localhost/pcw/PCW2/login.html"){
+            window.location.replace("index.html");
+        }
+    }
 }
 
 function construyeToken(usuario){
