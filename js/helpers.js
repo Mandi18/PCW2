@@ -49,7 +49,7 @@ function getUserData() {
     return obj;
 }
 
-function prepararFiltro({autor, nombre, ingrediente, etiqueta, dificultad, numeroReg, cantidadReg}){
+function prepararFiltro({autor, nombre, elaboracion, ingrediente, etiqueta, dificultad, numeroReg, cantidadReg}){
 
     if(numeroReg !== undefined && cantidadReg !== undefined){
         numeroReg = Number(numeroReg);
@@ -67,12 +67,24 @@ function prepararFiltro({autor, nombre, ingrediente, etiqueta, dificultad, numer
         }
     }
 
-    //TODO: falta el campo de elaboracion
-    if(nombre){
-        if(!existeParametro){
+    //TODO: Revisar si esto está bien hecho
+    if(!existeParametro){
+        if((nombre != null && nombre != '') && (elaboracion != null && elaboracion != '')){
+            urlPeticion += `?t=${nombre},${elaboracion}`;
+            existeParametro = true;
+        }else if(elaboracion != null && elaboracion != ''){
+            urlPeticion += `?t=${elaboracion}`;
+            existeParametro = true;
+        }else if(nombre != null && nombre != ''){
             urlPeticion += `?t=${nombre}`;
             existeParametro = true;
-        }else{
+        }
+    }else{
+        if((nombre != null && nombre != '') && (elaboracion != null && elaboracion != '')){
+            urlPeticion += `&t=${nombre},${elaboracion}`;
+        }else if(elaboracion != null && elaboracion != ''){
+            urlPeticion += `&t=${elaboracion}`;
+        }else if(nombre != null && nombre != ''){
             urlPeticion += `&t=${nombre}`;
         }
     }

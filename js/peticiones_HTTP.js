@@ -64,7 +64,7 @@ function getEtiquetas() {
     });
 }
 
-// Devuelve toda la información de la receta
+// Devuelve toda la información de la receta y la construye
 function getRecetas(cantidad){
     let url = 'api/recetas',
     xhr = new XMLHttpRequest();
