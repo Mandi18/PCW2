@@ -151,7 +151,6 @@ li >div >a > span {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
-    grid-template-rows: repeat(2, 1fr); /* 2 filas de igual tamaño */
     grid-gap: 20px; /* espacio entre las celdas */
     margin-top: 20px;
 }
@@ -183,7 +182,8 @@ article h2 {
 }
   
 article img {
-    max-width: 100%;
+    max-width: max-content;
+    max-height: max-content;
     height: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -250,6 +250,7 @@ article div a:hover {
 /*** IMAGEN ARTICULO ***/
 .img-receta{
     width: 100%;
+    height: 65%;
     padding: 2%;
  
 }
@@ -860,7 +861,6 @@ form button{
         width: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 3 columnas de igual tamaño */
-        grid-template-rows: repeat(3, 1fr); /* 2 filas de igual tamaño */
         grid-gap: 20px; /* espacio entre las celdas */
     }
     /**** NUEVAS***/
@@ -1027,7 +1027,6 @@ form button{
         width: 100%;
         display: grid;
         grid-template-columns: repeat(1, 1fr); /* 3 columnas de igual tamaño */
-        grid-template-rows: repeat(6, 1fr); /* 2 filas de igual tamaño */
         grid-gap: 20px; /* espacio entre las celdas */
     }
     .footer-rrss, .footer-links{
