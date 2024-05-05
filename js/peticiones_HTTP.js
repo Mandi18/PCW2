@@ -68,8 +68,9 @@ function getEtiquetas() {
 function getRecetas(cantidad){
     let url = 'api/recetas',
     xhr = new XMLHttpRequest();
+    recetas_actuales += cantidad;
     
-    url += '?reg=0&cant='+ cantidad;
+    url += '?reg=0&cant='+ recetas_actuales;
 
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
@@ -144,8 +145,7 @@ function numRecetas(filas){
 }
 
 function mostrarMas(mas){
-    recetas_actuales += mas;
-    getRecetas(recetas_actuales);
+    getRecetas(mas);
 }
 
 //Devuelve las recetas cuyo autor sea, o contenga, el texto {AUTOR} en el campo autor
