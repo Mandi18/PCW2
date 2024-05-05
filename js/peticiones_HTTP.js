@@ -180,6 +180,54 @@ function getRecetaFotos(id){
     });
 }
 
+//Devuelve las etiquetas de la receta por ID
+function getRecetaEtiquetas(id){
+    const url = `api/recetas/${id}/etiquetas`;
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            let etiquetas = xhr.response;
+            resolve(etiquetas);
+        }
+        xhr.send();
+    });
+}
+
+//Devuelve los ingredientes de la receta por ID
+function getRecetaIngredientes(id){
+    const url = `api/recetas/${id}/ingredientes`;
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            let ingredientes = xhr.response;
+            resolve(ingredientes);
+        }
+        xhr.send();
+    });
+}
+
+//Devuelve los comentarios de la receta por ID
+function getRecetaComentarios(id){
+    const url = `api/recetas/${id}/comentarios`;
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            let comentarios = xhr.response;
+            resolve(comentarios);
+        }
+        xhr.send();
+    });
+}
+
 //Devuelve las recetas cuyo autor sea, o contenga, el texto {AUTOR} en el campo autor
 function getRecetaFiltro({autor, nombre, ingrediente, etiqueta, dificultad, numeroReg, cantidadReg}){
     //Recogemos la url desde el método de los helpers, pasándole por parámetro lo mismo que le hemos pasado a la función
