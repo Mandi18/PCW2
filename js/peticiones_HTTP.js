@@ -234,6 +234,7 @@ function enQueFoto(){
         if(numFoto == 0){
             numFoto = maxFotos;
         }
+        //El id de la función siguiente es para darle estilo a ese párrafo en concreto
         let html= `
         <p id="quierollorar">Foto ${numFoto} de ${maxFotos}</p>
         `;
@@ -246,35 +247,47 @@ function enQueFoto(){
 }
 
 //Devuelve las etiquetas de la receta por ID
-function getRecetaEtiquetas(id){
-    const url = `api/recetas/${id}/etiquetas`;
-    return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
+function getRecetaEtiquetas(){
+    var params = new URLSearchParams(window.location.search);
+    var id = parseInt(params.get('id'));
 
-        xhr.open('GET', url, true);
-        xhr.responseType = 'json';
-        xhr.onload = () => {
-            let etiquetas = xhr.response;
-            resolve(etiquetas);
-        }
-        xhr.send();
-    });
+    let url = `api/recetas/${id}/etiquetas`,
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function(){
+        let respuesta = xhr.response;
+        let html = '';
+        respuesta.FILAS.forEach(function(etiquetas){
+            html += `
+            <li>${etiquetas.nombre}</li>
+            `;
+        });
+        document.querySelector('#etiquetas').innerHTML = html;
+    }
+    xhr.send();
 }
 
 //Devuelve los ingredientes de la receta por ID
-function getRecetaIngredientes(id){
-    const url = `api/recetas/${id}/ingredientes`;
-    return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
+function getRecetaIngredientes(){
+    var params = new URLSearchParams(window.location.search);
+    var id = parseInt(params.get('id'));
 
-        xhr.open('GET', url, true);
-        xhr.responseType = 'json';
-        xhr.onload = () => {
-            let ingredientes = xhr.response;
-            resolve(ingredientes);
-        }
-        xhr.send();
-    });
+    let url = `api/recetas/${id}/ingredientes`,
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function(){
+        let respuesta = xhr.response;
+        let html = '';
+        respuesta.FILAS.forEach(function(ingredientes){
+            html += `
+            <li>${ingredientes.texto}</li>
+            `;
+        });
+        document.querySelector('#ingredientes').innerHTML = html;
+    }
+    xhr.send();
 }
 
 //Devuelve los comentarios de la receta por ID

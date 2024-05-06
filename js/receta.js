@@ -8,16 +8,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         location.href = "index.html";
     }else{
         // HACEMOS LA PETICIÓN AL SERVIDOR PARA OBTENER LOS DATOS
-        const respuesta = await getRecetaID(idReceta);
-        const receta = respuesta.FILAS[0];
+        const respuesta_receta = await getRecetaID(idReceta);
+        const receta = respuesta_receta.FILAS[0];
 
         if(!receta){
             location.href = "index.html";
         }else{
-
-            // CONSTANTES QUE VAMOS A NECESITAR PARA LAS FOTOS, ETIQUETAS, INGREDIENTES Y COMENTARIOS
-            const respFotos = await getRecetaFotos(idReceta);
-            const fotos = respFotos.FILAS;
 
             const section = document.querySelector('section');
             section.innerHTML += `
@@ -61,18 +57,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="receta-info-basica-contenedor">
                         <div class="receta-info-etiquetas">
                             <h3>Etiquetas</h3>
-                            <ul>
-                                <li><a href="buscar.html">Pasta</a></li>
-                                <li><a href="buscar.html">Comida Italiana</a></li>        
-                            </ul> 
+                            <ul id="etiquetas"></ul> 
                         </div>
                         <div class="receta-info-ingredientes">
                             <h3>Ingredientes</h3>
-                            <ul>
-                                <li>500 gramos de harina</li>
-                                <li>200 militros de aciete</li>   
-                                <li>queso para pizzas</li>       
-                            </ul>
+                            <ul id="ingredientes"></ul>
                             
                         </div>
                     </div>
@@ -85,6 +74,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             verFotos();
             enQueFoto();
+            getRecetaEtiquetas();
+            getRecetaIngredientes();
         }
     }
 });
