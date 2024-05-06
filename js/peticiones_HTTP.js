@@ -207,6 +207,36 @@ function verFotos(){
     xhr.send();
 }
 
+function moverIzquierda(){
+    numFoto+= -1;
+    verFotos();
+}
+
+function moverDerecha(){
+    numFoto += 1;
+    verFotos();
+}
+
+//Muestra la posición de la foto donde estoy
+// function enQueFoto(){
+//     var params = new URLSearchParams(window.location.search);
+//     var id = parseInt(params.get('id'));
+
+//     let url = `api/recetas/${id}/fotos`,
+//     xhr = new XMLHttpRequest();
+//     xhr.open('GET', url, true);
+//     xhr.responseType = 'json';
+//     xhr.onload = function(){
+//         let fotos = xhr.response;
+//         let img = fotos.FILAS[numFoto];
+//         let html= `
+//         <p> Foto ${img.id} de ${numFoto} </p>
+//         `;
+//         document.querySelector('#wa').innerHTML = html;
+//     }
+//     xhr.send();
+// }
+
 //Devuelve las etiquetas de la receta por ID
 function getRecetaEtiquetas(id){
     const url = `api/recetas/${id}/etiquetas`;
