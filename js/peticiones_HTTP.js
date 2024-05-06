@@ -88,7 +88,7 @@ function getRecetas(cantidad){
                         <a href="receta.html?id=${receta.id}"><h2 class="articles-title">${receta.nombre}</h2></a>
                         <span class="tooltiptext">${receta.nombre}</span>
                     </div><br>
-                    <a href="receta.html"><img src="fotos/${receta.imagen}" alt="${receta.nombre}" class="img-receta"></a>
+                    <a href="receta.html?id=${receta.id}""><img src="fotos/${receta.imagen}" alt="${receta.nombre}" class="img-receta"></a>
 
                     <div class="receta-info">
                         <span class="receta-info-personas">
