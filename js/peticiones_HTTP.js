@@ -199,7 +199,7 @@ function verFotos(){
         }
         let img = fotos.FILAS[numFoto];
         let html= `
-        <img src="fotos/${img.archivo}" alt="${img.id}"  class="img-receta" >
+        <img src="fotos/${img.archivo}" alt="${img.id}"  class="img-receta2" >
         <p>${img.descripcion}</p>
         `;
         document.querySelector('#uwu').innerHTML = html;
@@ -210,32 +210,40 @@ function verFotos(){
 function moverIzquierda(){
     numFoto+= -1;
     verFotos();
+    enQueFoto();
 }
 
 function moverDerecha(){
     numFoto += 1;
     verFotos();
+    enQueFoto();
 }
 
 //Muestra la posición de la foto donde estoy
-// function enQueFoto(){
-//     var params = new URLSearchParams(window.location.search);
-//     var id = parseInt(params.get('id'));
+function enQueFoto(){
+    var params = new URLSearchParams(window.location.search);
+    var id = parseInt(params.get('id'));
 
-//     let url = `api/recetas/${id}/fotos`,
-//     xhr = new XMLHttpRequest();
-//     xhr.open('GET', url, true);
-//     xhr.responseType = 'json';
-//     xhr.onload = function(){
-//         let fotos = xhr.response;
-//         let img = fotos.FILAS[numFoto];
-//         let html= `
-//         <p> Foto ${img.id} de ${numFoto} </p>
-//         `;
-//         document.querySelector('#wa').innerHTML = html;
-//     }
-//     xhr.send();
-// }
+    let url = `api/recetas/${id}/fotos`,
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function(){
+        let fotos = xhr.response;
+        let maxFotos = fotos.FILAS.length;
+        if(numFoto == 0){
+            numFoto = maxFotos;
+        }
+        let html= `
+        <p id="quierollorar">Foto ${numFoto} de ${maxFotos}</p>
+        `;
+        if(numFoto == maxFotos){
+            numFoto = 0;
+        }
+        document.querySelector('#maxFotos').innerHTML = html;
+    }
+    xhr.send();
+}
 
 //Devuelve las etiquetas de la receta por ID
 function getRecetaEtiquetas(id){

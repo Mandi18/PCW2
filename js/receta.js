@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <div id="uwu"></div>
                         <div class="receta-images-desplazamiento-contenedor">
                             <button id="izquierda" onclick="moverIzquierda()"><i class="fas fa-angle-left"></i></button>
-                            <div id="wa"></div>
+                            <div id="maxFotos"></div>
                             <button id="derecha" onclick="moverDerecha()"><i class="fas fa-angle-right"></i></button>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
             `;
             verFotos();
-            //enQueFoto();
+            enQueFoto();
         }
     }
 });

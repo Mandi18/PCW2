@@ -248,11 +248,10 @@ article div a:hover, .memato:hover{
 
 
 /*** IMAGEN ARTICULO ***/
-.img-receta{
+.img-receta, .img-receta2{
     width: 100%;
     height: 65%;
     padding: 2%;
- 
 }
 
 .img-receta:hover{
@@ -726,11 +725,15 @@ form button{
   }
 
 .receta-images-contenedor p{
-    padding: 1%;
+    padding: 3%;
     background-color: darkgray;
     border: 1px solid black;
     width: 90%;
     margin: auto;
+}
+
+#quierollorar{
+    padding: 10%;
 }
 
 .receta-images-desplazamiento-contenedor{
