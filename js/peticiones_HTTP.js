@@ -25,6 +25,7 @@
 ***********************************************************/
 var maxRecetas = 0;
 var recetas_actuales = 0;
+var numFoto = 1;
 
 
 /***********************************************************
@@ -178,6 +179,32 @@ function getRecetaFotos(id){
         }
         xhr.send();
     });
+}
+
+//Busca las fotos para el carrusel
+function verFotos(){
+    var params = new URLSearchParams(window.location.search);
+    var id = parseInt(params.get('id'));
+
+    let url = `api/recetas/${id}/fotos`,
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function(){
+        let fotos = xhr.response;
+        if(numFoto == fotos.FILAS.length){
+            numFoto = 0;
+        }else if(numFoto == -1){
+            numFoto = fotos.FILAS.length-1;
+        }
+        let img = fotos.FILAS[numFoto];
+        let html= `
+        <img src="fotos/${img.archivo}" alt="${img.id}"  class="img-receta" >
+        <p>${img.descripcion}</p>
+        `;
+        document.querySelector('#uwu').innerHTML = html;
+    }
+    xhr.send();
 }
 
 //Devuelve las etiquetas de la receta por ID

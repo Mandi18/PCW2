@@ -19,29 +19,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const respFotos = await getRecetaFotos(idReceta);
             const fotos = respFotos.FILAS;
 
-            //TODO: Arreglar esto
-            fotos.forEach(element => {
-                let divImg = document.createElement('div');
-                divImg.classList.add('receta-images-contenedor');
-                let titulo = document.createElement('h3');
-                //titulo.textContent = element.
-                let imagen = document.createElement('img');
-                imagen.src = 'fotos/' + element.archivo;
-                imagen.classList.add('img-receta');
-                imagen.alt = 'Foto de publicacion' + element.id;
-                divImg.appendChild(imagen);
-            });
-                // <div class="receta-images-contenedor">
-                //     <h3>FOTOS</h3>
-                //     <img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" >
-                //     <p> Comentario de la foto, todo muy bueno</p>
-                //     <div class="receta-images-desplazamiento-contenedor">
-                //         <button><i class="fas fa-angle-left"></i></button>
-                //         <div>Foto 1/4</div>
-                //         <button><i class="fas fa-angle-right"></i></button>
-                //     </div>
-                // </div>
-
             const section = document.querySelector('section');
             section.innerHTML += `
             <div class="page-title-container">
@@ -74,8 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="receta-top-container">
                     <div class="receta-images-contenedor">
                         <h3>FOTOS</h3>
-                        <img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" >
-                        <p> Comentario de la foto, todo muy bueno</p>
+                        <div id="uwu"></div>
                         <div class="receta-images-desplazamiento-contenedor">
                             <button><i class="fas fa-angle-left"></i></button>
                             <div>Foto 1/4</div>
@@ -106,8 +82,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 </div>
             </div>
-        </div>
-            `
+            `;
+            verFotos();
         }
     }
 });
