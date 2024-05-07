@@ -26,6 +26,9 @@ footer{
 #btnArriba:hover {
     box-shadow: 2px 2px 4px #000;
 }
+textarea{
+    resize: none;
+}
 
 /*** CSS MENU PRINCIPAL ******/
 nav{
@@ -776,7 +779,6 @@ form button{
 }
 
 .receta-comentario{
-    border: 1px solid black;
     margin: 3%;
     width: 96%;
 }
@@ -790,11 +792,15 @@ form button{
 .receta-comentario p{
     padding: 2%;
 }
+.texto-com{
+    border: 1px solid black;
+}
 
 .receta-comentario-autor-contenedor{
     background-color: rgb(143, 197, 143);
     border: 1px solid black;
     display: flex;
+    margin-bottom: 4%;
 }
 .receta-comentario-fecha, .receta-comentario-autor{
     width: 50%;

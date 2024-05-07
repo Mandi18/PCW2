@@ -62,13 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <div class="receta-info-ingredientes">
                             <h3>Ingredientes</h3>
                             <ul id="ingredientes"></ul>
-                            
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
             `;
@@ -76,6 +71,28 @@ document.addEventListener('DOMContentLoaded', async () => {
             enQueFoto();
             getRecetaEtiquetas();
             getRecetaIngredientes();
+
+            section.innerHTML+= `
+            <div id="contenedor6" class="contenedor6">
+                <div class="receta-comentarios-container">
+                    <h3>Comentarios</h3>
+                    <div class="receta-cometario-advertencia"></div>
+                    <div class="receta-com"></div>
+                    <div id="receta-comentario" class="receta-comentario"></div>
+                </div>
+            </div>
+            `
+            getRecetaComentarios();
+            
+            const dejarCom = document.querySelector(".receta-cometario-advertencia");
+            
+            if(!sessionStorage['usuario']){
+                dejarCom.innerHTML = `
+                <h4>¿Quieres dejar un comentario? ¡<a href="login.html">Inicia sesión</a>!</h4>
+                `
+            }else{
+                getFormComentario();
+            }
         }
     }
 });

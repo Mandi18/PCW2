@@ -31,6 +31,16 @@ var numFoto = 1;
                         PETICIONES GET
 ***********************************************************/
 
+//Esta peticición recoge el formulario del html para poder habilitarlo cuando el usuario está logueado
+function getFormComentario() {
+    const url = 'formulario.html';
+    fetch(url)
+        .then(res => res.text())
+        .then(data => {
+            document.querySelector('div.receta-com').innerHTML = data;
+        });
+}
+
 // Busca si hay disponibilidad del Login
 function getDisponibilidadLogin(login){
     const url = `api/usuarios/${login}`;
@@ -319,19 +329,34 @@ function getRecetaIngredientes(){
 }
 
 //Devuelve los comentarios de la receta por ID
-function getRecetaComentarios(id){
-    const url = `api/recetas/${id}/comentarios`;
-    return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
+function getRecetaComentarios(){
+    var params = new URLSearchParams(window.location.search);
+    var id = parseInt(params.get('id'));
 
-        xhr.open('GET', url, true);
-        xhr.responseType = 'json';
-        xhr.onload = () => {
-            let comentarios = xhr.response;
-            resolve(comentarios);
-        }
-        xhr.send();
-    });
+    let url = `api/recetas/${id}/comentarios`,
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function(){
+        let respuesta = xhr.response;
+        let html = '';
+        respuesta.FILAS.forEach(function(comentarios){
+            html += `
+            <h4>${comentarios.titulo}</h4>
+            <p class="texto-com">${comentarios.texto}</p>
+            <div class="receta-comentario-autor-contenedor">
+                <div class="receta-comentario-fecha">
+                    <p><time datetime="2024-01-26 11:36">${comentarios.fechaHora}</time></p>
+                </div>
+                <div class="receta-comentario-autor">
+                    <p>Por: <span>${comentarios.login}</span></p>
+                </div>
+            </div>
+            `;
+        });
+        document.querySelector('#receta-comentario').innerHTML = html;
+    }
+    xhr.send();
 }
 
 //Devuelve las recetas cuyo autor sea, o contenga, el texto {AUTOR} en el campo autor
