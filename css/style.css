@@ -17,6 +17,11 @@ body{
 footer{
     background-color: whitesmoke;
 }
+
+.sinhover:hover{
+    background-color: #FFF;
+}
+
 #btnArriba{
     z-index: 1;
     background-color: #ccc;
