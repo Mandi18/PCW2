@@ -49,12 +49,9 @@ function getUserData() {
     return obj;
 }
 
-function prepararFiltro({autor, nombre, elaboracion, ingrediente, etiqueta, dificultad, numeroReg, cantidadReg}){
+function prepararFiltro({autor, nombre, elaboracion, ingrediente, etiqueta, dificultad}){
 
-    if(numeroReg !== undefined && cantidadReg !== undefined){
-        numeroReg = Number(numeroReg);
-        cantidadReg = Number(cantidadReg);
-    }
+
     let urlPeticion = 'api/recetas';
     let existeParametro = false;
     
@@ -113,15 +110,6 @@ function prepararFiltro({autor, nombre, elaboracion, ingrediente, etiqueta, difi
             existeParametro = true;
         }else{
             urlPeticion += `&d=${dificultad}`;
-        }
-    }
-
-    if(numeroReg !== undefined && cantidadReg !== undefined){
-        if(!existeParametro){
-            urlPeticion += `?reg=${numeroReg}&cant=${cantidadReg}`;
-            existeParametro = true; 
-        }else{
-            urlPeticion += `&reg=${numeroReg}&cant=${cantidadReg}`;
         }
     }
 

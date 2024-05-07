@@ -454,9 +454,6 @@ form button{
 .contenedor3{
     display: flex;
 }
-.buscados{
-    width: 59%;
-}
 .contenedor-formulario-buscar{
     width: 33%;
     margin-left: 1%;

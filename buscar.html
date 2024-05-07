@@ -9,9 +9,15 @@
         <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
         <link rel="icon" type="image/x-icon" href="img/hamburguesa.png">
+                <!-- Ubicación de los scripts -->
+                <script src="js/peticiones_HTTP.js"></script>
+                <script src="js/helpers.js"></script>
+                <script src="js/buscar.js"></script>
+
         <title>Inicio</title>
     </head>
     <body>
+        <script>maximoRecetas()</script>
         <header>
             <nav>
                 <input type="checkbox" id="check">
@@ -44,248 +50,44 @@
         <div class="contenedor3">
             <div class="contenedor-formulario-buscar">
                 
-                    
-                <form>
+                <form id="busquedaForm">
                     <label>Autor</label>
-                    <input type="text" name="cname" placeholder="Autor" value="">
+                    <input type="text" name="autor" placeholder="Autor">
                     <label>Contiene</label>
-                    <input type="text" name="cname" placeholder="Contiene" value="">
+                    <input type="text" name="contiene" placeholder="Contiene">
                     <label>Ingrediente</label>
-                    <input type="text" name="ingredientes" placeholder="Ingrediente" value="">
+                    <input type="text" name="ingredientes" placeholder="Ingrediente">
                     <label>Etiquetas</label>
-                    <input type="text" name="etiquetas" placeholder="Etiquetas" value="" >  
-                    <label>Dificultad</label> 
-                    <div   class="buscar-dificultad">
-                        <select name="comunidad">
-                            <option value="Dificultad">1-Baja</option>
-                            <option value="Dificultad">2-Media</option>
-                            <option value="Dificultad">3-Alta</option>
+                    <input type="text" name="etiquetas" placeholder="Etiquetas">
+                    <label>Dificultad</label>
+                    <div class="buscar-dificultad">
+                        <select name="dificultad">
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
                         </select>
-                    </div> 
+                    </div>
                     <button type="submit">Buscar</button>
-                    <button type="reset" value="Limpiar">Limpiar</button>
+                    <button type="reset">Limpiar</button>
                 </form>
-                
+            
+                <!-- Vincular el archivo JavaScript externo -->
+                <script src="js/form.js"></script>
+
             </div>
-            <div class="buscados">
-                <div class="contenedor-articulos">
-                    <div class="articles-container">
-                        <article>
-                            <div class="tooltip">
-                                <a href="receta.html"><h2 class="articles-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2></a>
-                                <span class="tooltiptext">Pizza vegetariana italiana casera, echa con ingredientes finos</span>
-                            </div><br>
-                            <div class="article-autor">
-                                <h3>Autor: <span>Rosmery Jimenez Gonzales</span></h3>
-                                <time datetime = "2023-03-02">2023-03-02</time>
-                            </div>
-                            <a href="receta.html"><img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" ></a> <!-- Migrar la medida del logo de aqui al css -->
-                    
-                            <div class="receta-info">
-                                <span   class="receta-info-personas">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                    4
-                                    Personas
-            
-                                </span>
-                                <span   class="receta-info-dificultad">
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="far fa-star" aria-hidden="true"></i>
-            
-                                    Dificultad
-            
-                                </span>
-                                <span   class="receta-info-tiempo">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                    600
-                                    min
-                                </span>
-                            </div>
-                        </article>	
-                        
+            <div class="contenedor">
+                <main>
+                    <div id="contenedor-articulos" class="contenedor-articulos">
+                            <!-- Dentro de esto se mostrarán las recetas generadas por el script de arriba -->
                     </div>
-                    <div class="articles-container">
-                        <article>
-                            <div class="tooltip">
-                                <a href="receta.html"><h2 class="articles-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2></a>
-                                <span class="tooltiptext">Pizza vegetariana italiana casera, echa con ingredientes finos</span>
-                            </div><br>
-                            <div class="article-autor">
-                                <h3>Autor: <span>Rosmery Jimenez Gonzales</span></h3>
-                                <time datetime = "2023-03-02">2023-03-02</time>
-                            </div>
-                            <a href="receta.html"><img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" ></a> <!-- Migrar la medida del logo de aqui al css -->
-                    
-                            <div class="receta-info">
-                                <span   class="receta-info-personas">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                    4
-                                    Personas
-            
-                                </span>
-                                <span   class="receta-info-dificultad">
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="far fa-star" aria-hidden="true"></i>
-            
-                                    Dificultad
-            
-                                </span>
-                                <span   class="receta-info-tiempo">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                    600
-                                    min
-                                </span>
-                            </div>
-                        </article>	
-                        
+                    <script>numRecetas(0)</script>
+                    <div id="paginacion" class="paginacion"></div>	
+
+                    <div class="paginacion">
+                        <button onclick="mostrarMas(1)"><i class="fas fa-plus"> M&aacute;s recetas</i></button>
                     </div>
-                    <div class="articles-container">
-                        <article>
-                            <div class="tooltip">
-                                <a href="receta.html"><h2 class="articles-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2></a>
-                                <span class="tooltiptext">Pizza vegetariana italiana casera, echa con ingredientes finos</span>
-                            </div><br>
-                            <div class="article-autor">
-                                <h3>Autor: <span>Rosmery Jimenez Gonzales</span></h3>
-                                <time datetime = "2023-03-02">2023-03-02</time>
-                            </div>
-                            <a href="receta.html"><img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" ></a> <!-- Migrar la medida del logo de aqui al css -->
-                    
-                            <div class="receta-info">
-                                <span   class="receta-info-personas">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                    4
-                                    Personas
-            
-                                </span>
-                                <span   class="receta-info-dificultad">
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="far fa-star" aria-hidden="true"></i>
-            
-                                    Dificultad
-            
-                                </span>
-                                <span   class="receta-info-tiempo">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                    600
-                                    min
-                                </span>
-                            </div>
-                        </article>	
-                        
-                    </div>
-                    <div class="articles-container">
-                        <article>
-                            <div class="tooltip">
-                                <a href="receta.html"><h2 class="articles-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2></a>
-                                <span class="tooltiptext">Pizza vegetariana italiana casera, echa con ingredientes finos</span>
-                            </div><br>
-                            <div class="article-autor">
-                                <h3>Autor: <span>Rosmery Jimenez Gonzales</span></h3>
-                                <time datetime = "2023-03-02">2023-03-02</time>
-                            </div>
-                            <a href="receta.html"><img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" ></a> <!-- Migrar la medida del logo de aqui al css -->
-                    
-                            <div class="receta-info">
-                                <span   class="receta-info-personas">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                    4
-                                    Personas
-            
-                                </span>
-                                <span   class="receta-info-dificultad">
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="far fa-star" aria-hidden="true"></i>
-            
-                                    Dificultad
-            
-                                </span>
-                                <span   class="receta-info-tiempo">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                    600
-                                    min
-                                </span>
-                            </div>
-                        </article>	
-                        
-                    </div>
-                    <div class="articles-container">
-                        <article>
-                            <div class="tooltip">
-                                <a href="receta.html"><h2 class="articles-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2></a>
-                                <span class="tooltiptext">Pizza vegetariana italiana casera, echa con ingredientes finos</span>
-                            </div><br>
-                            <div class="article-autor">
-                                <h3>Autor: <span>Rosmery Jimenez Gonzales</span></h3>
-                                <time datetime = "2023-03-02">2023-03-02</time>
-                            </div>
-                            <a href="receta.html"><img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" ></a> <!-- Migrar la medida del logo de aqui al css -->
-                    
-                            <div class="receta-info">
-                                <span   class="receta-info-personas">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                    4
-                                    Personas
-            
-                                </span>
-                                <span   class="receta-info-dificultad">
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="far fa-star" aria-hidden="true"></i>
-            
-                                    Dificultad
-            
-                                </span>
-                                <span   class="receta-info-tiempo">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                    600
-                                    min
-                                </span>
-                            </div>
-                        </article>	
-                        
-                    </div>
-                    <div class="articles-container">
-                        <article>
-                            <div class="tooltip">
-                                <a href="receta.html"><h2 class="articles-title">Pizza vegetariana italiana casera, echa con ingredientes finos</h2></a>
-                                <span class="tooltiptext">Pizza vegetariana italiana casera, echa con ingredientes finos</span>
-                            </div><br>
-                            <div class="article-autor">
-                                <h3>Autor: <span>Rosmery Jimenez Gonzales</span></h3>
-                                <time datetime = "2023-03-02">2023-03-02</time>
-                            </div>
-                            <a href="receta.html"><img src="./fotos/pizza.jpg" alt="Foto de la receta"  class="img-receta" ></a> <!-- Migrar la medida del logo de aqui al css -->
-                    
-                            <div class="receta-info">
-                                <span   class="receta-info-personas">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                    4
-                                    Personas
-            
-                                </span>
-                                <span   class="receta-info-dificultad">
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                    <i class="far fa-star" aria-hidden="true"></i>
-            
-                                    Dificultad
-            
-                                </span>
-                                <span   class="receta-info-tiempo">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                    600
-                                    min
-                                </span>
-                            </div>
-                        </article>	
-                        
-                    </div>
-                </div>
+                </main>
             </div>
             
         </div>
@@ -296,7 +98,5 @@
             </div>
             <a href="acerca.html">Contacto</a>
         </footer>
-        <script src="js/helpers.js"></script>
-        <script src="js/peticiones_HTTP.js"></script>
     </body>
 </html>
