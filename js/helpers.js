@@ -49,7 +49,7 @@ function getUserData() {
     return obj;
 }
 
-function prepararFiltro({autor, nombre, elaboracion, ingrediente, etiqueta, dificultad}){
+function prepararFiltro({autor, nombre, elaboracion, ingredientes, etiquetas, dificultad}){
 
 
     let urlPeticion = 'api/recetas';
@@ -86,21 +86,20 @@ function prepararFiltro({autor, nombre, elaboracion, ingrediente, etiqueta, difi
         }
     }
 
-    if(ingrediente){
+    if(ingredientes){
         if(!existeParametro){
-            urlPeticion += `?i=${ingrediente}`;
+            urlPeticion += `?i=${ingredientes}`;
             existeParametro = true;
         }else{
-            urlPeticion += `&i=${ingrediente}`;
+            urlPeticion += `&i=${ingredientes}`;
         }
     }
-
-    if(etiqueta){
+    if(etiquetas){
         if(!existeParametro){
-            urlPeticion += `?e=${etiqueta}`;
+            urlPeticion += `?e=${etiquetas}`;
             existeParametro = true;
         }else{
-            urlPeticion += `&e=${etiqueta}`;
+            urlPeticion += `&e=${etiquetas}`;
         }
     }
 
@@ -112,7 +111,6 @@ function prepararFiltro({autor, nombre, elaboracion, ingrediente, etiqueta, difi
             urlPeticion += `&d=${dificultad}`;
         }
     }
-
     //devolvemos el objeto que hemos ido creando por partes
     return urlPeticion;
 }

@@ -12,12 +12,12 @@ form.addEventListener('submit', async function(event) {
 
 async function realizaBusqueda() { //TODO: revisar contiene, ingrediente y etiquetas. Recoger y buscar la etiqueta por la url y actualizar paginacion de busqueda
     const autor = document.querySelector('input[name="autor"]').value;
-    const contiene = document.querySelector('input[name="contiene"]').value;
+    const nombre = document.querySelector('input[name="nombre"]').value;
+    const elaboracion = document.querySelector('input[name="elaboracion"]').value;
     const ingredientes = document.querySelector('input[name="ingredientes"]').value;
     const etiquetas = document.querySelector('input[name="etiquetas"]').value;
     const dificultad = document.querySelector('select[name="dificultad"]').value;
-
-    const recetas = await getRecetaFiltro({autor, contiene, ingredientes, etiquetas, dificultad, numeroReg: 6, cantidadReg: 0});
+    const recetas = await getRecetaFiltro({ autor, nombre, elaboracion, ingredientes, etiquetas, dificultad});
     const contenedor = document.getElementById('contenedor-articulos');
 
     recetas.FILAS.forEach(async receta => {
@@ -56,12 +56,4 @@ async function realizaBusqueda() { //TODO: revisar contiene, ingrediente y etiqu
         // Agregar el elemento div al contenedor
         contenedor.appendChild(recetaDiv);
     });
-
-    //console.log("recetas:", recetas);
-    console.log("Autor:", autor);
-    console.log("Contiene:", contiene);
-    console.log("Ingredientes:", ingredientes);
-    console.log("Etiquetas:", etiquetas);
-    console.log("Dificultad:", dificultad);
-
 }
