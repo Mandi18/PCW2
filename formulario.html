@@ -1,6 +1,6 @@
 <div class="receta-comentario">
     <h4>Deja tu comentario</h4>
-    <form onsubmit="return postComentario(this)">
+    <form id="publicarcom" onsubmit="return postComentario(event)">
         <input type="text" name="cname" placeholder="Titulo del Comentario" maxlength="100" >
         <textarea id="w3review" name="comentario" maxlength="300" placeholder="Comentario" rows="4" cols="50"></textarea>
         <input type="reset"></input>

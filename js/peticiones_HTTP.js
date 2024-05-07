@@ -1,25 +1,5 @@
 'use strict';
 
-/*
-    He hecho las peticiones creando objetos de tipo promesa, pero se 
-    pueden hacer también de esta forma:
-    const token = 'usuario1:cdbsjdbbkvsdbkv';
-    fetch('http://localhost:3000/api/recetas/${id}', {
-         method: 'POST',
-         // Datos en enviar a la API. (Solo POST y PUT)
-         body: {
-             "usuario": "pepito",
-             "password": "1234"
-         },
-         // Content-Type: application/json -> Formato de envío de body
-         // Authorization: {token} -> Se envía el token para autenticarse
-        headers: {
-             "Content-Type": "application/json",
-             "Authorization": token,
-        }
-    }).then(res => res.json()).then(res => console.log(res));
-*/
-
 /***********************************************************
                         VARIABLES
 ***********************************************************/
@@ -398,7 +378,6 @@ function hacerLogin(form){
             console.log(user);
 
             if(user.RESULTADO === 'OK'){  
-
                 sessionStorage['usuario'] = xhr.responseText;
                 console.log(user.ULTIMO_ACCESO);
                 mostrarMensajeLogin(user.ULTIMO_ACCESO);
@@ -448,4 +427,40 @@ function darAltaUsuario(evt) {
         }
     }
     xhr.send(fd);
+}
+
+//Publicar un comentario
+function postComentario(evt) {
+    var params=new URLSearchParams(window.location.search);
+    var id=parseInt(params.get('id'));
+    evt.preventDefault();
+    let usu = JSON.parse(sessionStorage['usuario']);
+
+    let url = `api/recetas/${id}/comentarios`,
+        xhr = new XMLHttpRequest(),
+        frm = evt.currentTarget,
+        fd = new FormData(frm);
+
+        let title=frm.querySelector('input[type="text"]').value;
+        let comment=frm.querySelector('textarea').value;
+        frm.reset(); 
+
+        if(usu){
+            let auth = usu.LOGIN + ':' + usu.TOKEN;
+            xhr.open('POST', url, true);
+            xhr.responseType = 'json';
+            
+            xhr.onload = function(){
+                let r = xhr.response;
+
+                if (r.CODIGO === 201) {
+                    crearModalComentario(id);
+                    document.querySelector('#publicarcom').reset();
+                }
+            }
+            fd.append('titulo', title);
+            fd.append('texto', comment);
+            xhr.setRequestHeader('Authorization', auth);
+            xhr.send(fd);
+        }
 }

@@ -130,7 +130,7 @@ function mostrarMensajeLogin(fecha){
     var html;
 
     div.id = 'mensaje-modal';
-    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.position = 'fixed'; 
     div.style.top = '50%';
     div.style.left = '50%';
     div.style.transform = 'translate(-50%, -50%)';
@@ -154,7 +154,7 @@ function mostrarMensajeRegistro() {
     var html;
 
     div.id = 'mensaje-modal';
-    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.position = 'fixed'; 
     div.style.top = '50%';
     div.style.left = '50%';
     div.style.transform = 'translate(-50%, -50%)';
@@ -177,7 +177,7 @@ function mostrarMensajeError(){
     var html;
 
     div.id = 'mensaje-modal';
-    div.style.position = 'fixed'; // o 'absolute' dependiendo de tu preferencia
+    div.style.position = 'fixed'; 
     div.style.top = '50%';
     div.style.left = '50%';
     div.style.transform = 'translate(-50%, -50%)';
@@ -190,6 +190,27 @@ function mostrarMensajeError(){
         <p>Campos incorrectos</p>
         <button onclick="document.getElementById('mensaje-modal').remove();">Aceptar</button>
     </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+function crearModalComentario(id) {
+    let div = document.createElement("div");
+    var html;
+
+    div.id = 'mensaje-modal';
+    div.style.position = 'fixed'; 
+    div.style.top = '50%';
+    div.style.left = '50%';
+    div.style.transform = 'translate(-50%, -50%)';
+    div.style.background = 'white';
+    div.style.padding = '20px';
+    div.style.border = '1px solid black';
+
+    html = `<h3>Tu comentario se ha publicado corretamente</h3>
+    <button onclick="window.location.href = 'receta.html?id=${id}'">Cerrar</button`;
 
     div.innerHTML = html;
 
