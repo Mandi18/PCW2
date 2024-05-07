@@ -278,7 +278,7 @@ function getRecetaEtiquetas(){
         let html = '';
         respuesta.FILAS.forEach(function(etiquetas){
             html += `
-            <li>${etiquetas.nombre}</li>
+            <li><a class="sinhover" href="buscar.html?e=${etiquetas.nombre}">${etiquetas.nombre}</a></li>
             `;
         });
         document.querySelector('#etiquetas').innerHTML = html;

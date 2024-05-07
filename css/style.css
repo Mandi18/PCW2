@@ -17,6 +17,24 @@ body{
 footer{
     background-color: whitesmoke;
 }
+
+.sinhover:hover{
+    background-color: #FFF;
+}
+
+.acerca{
+    list-style-type: disc;
+    font-size: large;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.problemas{
+    font-size: large;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
 #btnArriba{
     z-index: 1;
     background-color: #ccc;

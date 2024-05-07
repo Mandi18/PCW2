@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div id="contenedor6" class="contenedor6">
                 <div class="receta-info-autor">
                     <div class="receta-autor">
-                        <h2>Autor: <a href="buscar.html" class="memato"><span>${receta.autor}</span></a></h2>
+                        <h2>Autor: <a href="buscar.html?a=${receta.autor}" class="memato"><span>${receta.autor}</span></a></h2>
                     </div>
                     <div class="receta-fecha">
                         <h2>Fecha de creaci&oacute;n: <span>${receta.fechaCreacion}</span></h2>
