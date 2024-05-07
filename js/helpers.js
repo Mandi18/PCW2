@@ -48,7 +48,6 @@ function getUserData() {
     const obj = JSON.parse(session);
     return obj;
 }
-
 function prepararFiltro({autor, nombre, elaboracion, ingredientes, etiquetas, dificultad}){
 
 

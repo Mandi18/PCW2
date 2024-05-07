@@ -342,7 +342,9 @@ function getRecetaComentarios(){
 //Devuelve las recetas cuyo autor sea, o contenga, el texto {AUTOR} en el campo autor
 function getRecetaFiltro({autor, nombre, elaboracion, ingredientes, etiquetas, dificultad}){
     //Recogemos la url desde el método de los helpers, pasándole por parámetro lo mismo que le hemos pasado a la función
+
     const url = prepararFiltro({autor, nombre, elaboracion, ingredientes, etiquetas, dificultad});
+
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
 
@@ -353,6 +355,7 @@ function getRecetaFiltro({autor, nombre, elaboracion, ingredientes, etiquetas, d
             resolve(recetas);
         };
         xhr.send();
+        console.log(xhr);
     });
 }
 
