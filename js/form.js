@@ -1,5 +1,7 @@
 
 var recetas_actuales = 0;
+var i=0;
+var primeroBusca = false;
 // Obtener referencia al formulario
 const form = document.getElementById('busquedaForm');
 
@@ -7,10 +9,11 @@ const form = document.getElementById('busquedaForm');
 form.addEventListener('submit', async function(event) {
     // Prevenir el comportamiento predeterminado del formulario (recargar la página)
     event.preventDefault();
-
+    resetearBusquedas();
     // Llamar a la función realizaBusqueda de forma asíncrona
     let recetas= await realizaBusqueda();
    muestraBusqueda(recetas);
+   numBusquedas(i);
 });
 
 async function realizaBusqueda() { //TODO: revisar contiene, ingrediente y etiquetas. Recoger y buscar la etiqueta por la url y actualizar paginacion de busqueda
@@ -20,21 +23,27 @@ async function realizaBusqueda() { //TODO: revisar contiene, ingrediente y etiqu
     const ingredientes = document.querySelector('input[name="ingredientes"]').value;
     const etiquetas = document.querySelector('input[name="etiquetas"]').value;
     const dificultad = document.querySelector('select[name="dificultad"]').value;
-    const recetas = await getRecetaFiltro({ autor, nombre, elaboracion, ingredientes, etiquetas, dificultad});
-    const contenedor = document.getElementById('contenedor-articulos');
-    contenedor.innerHTML="";
-    let numFilas = recetas.FILAS;
-    recetas_actuales=numFilas;
 
+    const recetas = await getRecetaFiltro({ autor, nombre, elaboracion, ingredientes, etiquetas, dificultad});
+    let numFilas = recetas.FILAS.length;
+    recetas_actuales=numFilas;
     return recetas;
 }
 
 async function muestraBusqueda(recetas){
     const contenedor = document.getElementById('contenedor-articulos');
+    
+    // Crear un array para almacenar las recetas finales
+    const recetasFinales = [];
 
-    let i =0;
-    let limitador = 10;
-    recetas.FILAS.forEach(async receta => {
+    // Bucle para copiar las recetas.FILAS[] a partir de i
+    for (let j = i; j < recetas.FILAS.length; j++) {
+        recetasFinales.push(recetas.FILAS[j]);
+    }
+
+    let limitador = 2;
+
+    recetasFinales.forEach(async receta => {
         if(limitador>0){
            // Crear un nuevo elemento div para cada receta
            const recetaDiv = document.createElement('div');
@@ -70,11 +79,19 @@ async function muestraBusqueda(recetas){
            
            // Agregar el elemento div al contenedor
            contenedor.appendChild(recetaDiv);
-           i++;
            limitador--;
         }
     });
-    numBusquedas(i);
+    if(recetasFinales.length>=2 && !primeroBusca){
+        i=2;
+    }else if(recetasFinales.length<2 && primeroBusca){
+        i += recetasFinales.length;
+    }else if(recetasFinales.length>=2 && primeroBusca){
+        i += 2;
+    }else{
+        i = recetasFinales.length;
+    }
+    primeroBusca = true;
 }
 
 function numBusquedas(filas){
@@ -82,15 +99,27 @@ function numBusquedas(filas){
     xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
-    console.log(recetas_actuales.length);
     xhr.onload = function() {
         let html = '';
         html += `
         <article class="index.html">
-        <h3> Mostrando ${filas} de ${recetas_actuales.length} recetas.</h3>
+        <h3> Mostrando ${filas} de ${recetas_actuales} recetas.</h3>
         </article>
         `
         document.querySelector('#paginacion').innerHTML = html;
     }
     xhr.send();
+}
+function resetearBusquedas(){
+    const contenedor = document.getElementById('contenedor-articulos');
+    contenedor.innerHTML="";
+    i = 0;
+}
+async function mostrarMasBusquedas(){
+    if(primeroBusca && i<recetas_actuales){
+        let recetasBuscadas = recetas_actuales;
+        let recetas= await realizaBusqueda();
+        muestraBusqueda(recetas);
+        numBusquedas(i);
+    }
 }

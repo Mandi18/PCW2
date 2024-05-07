@@ -355,7 +355,6 @@ function getRecetaFiltro({autor, nombre, elaboracion, ingredientes, etiquetas, d
             resolve(recetas);
         };
         xhr.send();
-        console.log(xhr);
     });
 }
 
@@ -372,15 +371,12 @@ function hacerLogin(form){
         xhr = new XMLHttpRequest(); 
 
         xhr.open('POST',url,true); 
-        console.log("aqui")
         xhr.onload=function(){
 
             let user = JSON.parse(xhr.responseText);  
-            console.log(user);
 
             if(user.RESULTADO === 'OK'){  
                 sessionStorage['usuario'] = xhr.responseText;
-                console.log(user.ULTIMO_ACCESO);
                 mostrarMensajeLogin(user.ULTIMO_ACCESO);
             }else{
                 mostrarMensajeError();

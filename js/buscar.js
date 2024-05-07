@@ -4,38 +4,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(valores);
     const usuario = params.get('a');
     const etiqueta = params.get('e');
-    let recetasUsuario = [];
-    let etiquetaSelec;
+    let numRecetas;
     if(etiqueta){
-        const recetas = await getRecetasTotales();
-
-        let etiquetas = await getEtiquetas();
-        etiquetas.FILAS.forEach(async (etiquetaActual) => {
-            if(etiquetaActual.nombre === etiqueta){
-                etiquetaSelec=etiquetaActual.id;
-            }   
-        });
-        recetas.forEach(async (receta) => {
-            const etiquetasReceta = await getRecetaEtiquetasXid(receta.id);
-
-            etiquetasReceta.forEach(async (etiquetaReceta) => {
-                if(etiquetaReceta.id === etiquetaSelec){
-                    recetasUsuario.push(receta);
-                }
-            });
-        });
-    }else if(usuario){
+        document.querySelector('input[name="etiquetas"]').value = etiqueta;
+        let recetas = await realizaBusqueda();
+        muestraBusqueda(recetas);
+        if(recetas.FILAS.length > 2){
+            numRecetas = 2;
+        }else{
+            numRecetas = recetas.FILAS.length;
+        }
+        numBusquedas(numRecetas);
+        }else if(usuario){
 
         document.querySelector('input[name="autor"]').value = usuario;
-        await realizaBusqueda();
-        // const recetas = await getRecetasTotales();
-        // recetas.forEach(async (receta) => {
-
-        //     let recetaActual = await getRecetaID(receta.id);
-        //     if(recetaActual.FILAS[0].autor === usuario){
-        //         recetasUsuario.push(recetaActual.FILAS[0]);
-        //     }
-        // });
+        let recetas = await realizaBusqueda();
+        muestraBusqueda(recetas);
+  
+        if(recetas.FILAS.length > 2){
+            numRecetas = 2;
+        }else{
+            numRecetas = recetas.FILAS.length;
+        }
+        numBusquedas(numRecetas);
     }
     
 });
