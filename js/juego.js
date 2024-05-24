@@ -3,6 +3,8 @@ let intervalo;
 const ANCHO_CANVAS = 360;
 let nDivs = 5;
 document.addEventListener("DOMContentLoaded", function() {
+    // Borrar el sessionStorage al cargar la página
+    sessionStorage.clear();
     prepararCanvas();
     prepararEventosCanvas();
 });
@@ -12,8 +14,7 @@ function actualizarTiempo(tiempo) {
     tiempoEmpleado.textContent = tiempo;
 }
 
-// Función para iniciar el temporizador
-// Función para iniciar el temporizador
+
 // Función para iniciar el temporizador
 function iniciarTemporizador() {
     let segundos = 0;
@@ -62,6 +63,13 @@ function iniciarTemporizador() {
 
     // Remover el evento click del botón "Empezar" para evitar múltiples temporizadores
     document.getElementById('playButton').removeEventListener('click', iniciarTemporizador);
+
+            // Activar radio buttons
+    let radioButtons = document.querySelectorAll('input[type="radio"][name="option_grid2"]');
+    radioButtons.forEach(button => {
+        button.disabled = false;
+    });
+
 }
 
 // Función para detener el temporizador y restaurar el estado inicial
@@ -81,7 +89,6 @@ function mostrarMensajeModal() {
     let jugadasRealizadas = document.getElementById('jugadasRealizadas').textContent;
     let piezasCorrectas = document.getElementById('piezasCorrectas').textContent;
     let tiempoEmpleado = document.getElementById('tiempoEmpleado').textContent;
-    n++;
 
     // Construir el mensaje
     let mensaje = `Oh has perdido!!!\n `;
@@ -224,18 +231,11 @@ function mostrarImagenEnCanvas(fichero) {
 
         // Activar botón Empezar
         document.getElementById('playButton').disabled = false;
-
-        // Activar radio buttons
-        let radioButtons = document.querySelectorAll('input[type="radio"][name="option_grid2"]');
-        radioButtons.forEach(button => {
-            button.disabled = false;
-        });
     };
 
     img.src = URL.createObjectURL(fichero);
 }
 
-//Cargamos la imagen
 //Cargamos la imagen
 function cargarImagen() {
     let inp = document.createElement('input');
@@ -272,19 +272,13 @@ function cargarImagen() {
                 cv1.width = cv1.width;
                 ctx1.drawImage(img, posX, posY, ancho, alto);
 
-                // Copiar la imagen del cv1 al cv2
-                cv2.width = cv1.width;
-                cv2.height = cv1.height;
-                ctx2.drawImage(cv1, 0, 0);
+                // // Copiar la imagen del cv1 al cv2
+                // cv2.width = cv1.width;
+                // cv2.height = cv1.height;
+                // ctx2.drawImage(cv1, 0, 0);
 
                 // Activar botón Empezar
                 document.getElementById('playButton').disabled = false;
-
-                // Activar radio buttons
-                let radioButtons = document.querySelectorAll('input[type="radio"][name="option_grid2"]');
-                radioButtons.forEach(button => {
-                    button.disabled = false;
-                });
             };
 
             img.src = URL.createObjectURL(fichero);
@@ -296,6 +290,8 @@ function cargarImagen() {
 
 // Función para actualizar nDivs según la opción seleccionada
 function actualizarDivs(valor) {
+    console.log('Valor seleccionado:', valor);
+
     switch (valor) {
         case "5x5":
             nDivs = 5;
@@ -310,24 +306,71 @@ function actualizarDivs(valor) {
             nDivs = 5;
             break;
     }
+    console.log('nDivs actualizado a:', nDivs);
+
 }
 
-function prepararEventosCanvas() {
-    let cv = document.querySelector('#cv1');
-        // Desactivar botón Empezar
-        document.getElementById('playButton').disabled = true;
+    function prepararEventosCanvas() {
+        let cv = document.querySelector('#cv1');
+        let cv2 = document.querySelector('#cv2');
+        cv.onclick = function(evt) {        
+            cargarImagen();
+        }
+     // Variables para almacenar la pieza seleccionada anteriormente y su posición
+    let piezaSeleccionada = null;
+    let posicionPiezaSeleccionada = null;
 
-        // Desactivar botón Terminar
-        document.getElementById('stopButton').disabled = true;
-    
-        // Desactivar solo los radio buttons con name "option_grid2"
-        let radioButtons = document.querySelectorAll('input[type="radio"][name="option_grid2"]');
-        radioButtons.forEach(button => {
-            button.disabled = true;
+    cv2.onclick = function(evt) {
+        // Obtener las coordenadas del clic dentro del canvas
+        let rect = cv2.getBoundingClientRect();
+        let x = evt.clientX - rect.left;
+        let y = evt.clientY - rect.top;
+
+        // Calcular la fila y la columna en la que se hizo clic
+        let tam = cv2.width / nDivs;
+        let fila = Math.floor(y / tam);
+        let columna = Math.floor(x / tam);
+        let indice = fila * nDivs + columna;
+
+        // Obtener las piezas actuales del sessionStorage
+        let piezas = JSON.parse(sessionStorage['piezas']);
+
+        // Si no hay ninguna pieza seleccionada anteriormente
+        if (piezaSeleccionada === null) {
+            // Almacenar la pieza seleccionada y su posición
+            piezaSeleccionada = piezas[indice];
+            posicionPiezaSeleccionada = indice;
+        } else {
+            // Intercambiar las posiciones de las piezas
+            let temp = piezas[posicionPiezaSeleccionada];
+            piezas[posicionPiezaSeleccionada] = piezas[indice];
+            piezas[indice] = temp;
+
+            // Reiniciar la pieza seleccionada y su posición
+            piezaSeleccionada = null;
+            posicionPiezaSeleccionada = null;
+        }
+
+        // Actualizar el sessionStorage con las nuevas posiciones de las piezas
+        sessionStorage['piezas'] = JSON.stringify(piezas);
+
+        // Volver a pintar el canvas2 con las piezas actualizadas
+        pintarPiezas();
+    };
+
+    // Desactivar botón Empezar
+    document.getElementById('playButton').disabled = true;
+
+    // Desactivar botón Terminar
+    document.getElementById('stopButton').disabled = true;
+            
+    // Desactivar solo los radio buttons con name "option_grid2"
+    let radioButtons = document.querySelectorAll('input[type="radio"][name="option_grid2"]');
+    radioButtons.forEach(button => {
+        button.disabled = true;
     });
-    cv.onclick = function(evt) {        
-        cargarImagen();
-    }
+                
+    divisiones();
 }
 // Función para mostrar el canvas correspondiente
 function mostrarCanvas(canvasId) {
@@ -375,7 +418,70 @@ function divisiones() {
     }
     ctx.stroke();
 }
+
+function mezclarPiezas() {
+    let piezas = [],
+        i, j, aux;
+
+        console.log("nDivs en mezclarPiezas: ", nDivs);
+    for( i = 0; i < nDivs * nDivs; i++)
+        piezas.push( i );
+
+
+    // mezclar piezas
+    piezas.forEach( function(pieza, idx) {
+        j = Math.floor( Math.random() * (nDivs * nDivs) );
+        aux = pieza;
+        piezas[ idx ] = piezas[ j ];
+        piezas[j] = aux;
+    });
+
+    sessionStorage['piezas'] = JSON.stringify( piezas );
+}
+
+function pintarPiezas() {    
+    let piezas = JSON.parse(sessionStorage['piezas']),
+        cv1 = document.querySelector('#cv1'),
+        ctx1 = cv1.getContext('2d'),
+        cv2 = document.querySelector('#cv2'),
+        ctx2 = cv2.getContext('2d'),
+        tam = cv1.width / nDivs; // Utilizar el valor actualizado de nDivs
+console.log(piezas);
+    // Obtener la imagen del canvas cv1
+    let imgData = cv1.toDataURL();
+
+    // Crear una imagen temporal
+    let imgTemp = new Image();
+    imgTemp.onload = function() {
+        // Clear the canvas before drawing
+        cv2.width = cv2.width;
+
+        piezas.forEach(function(pieza, idx) {
+            let fila, col, // Posición en el vector de piezas
+                fila2, col2;
+
+            fila = Math.floor(idx / nDivs);
+            col = idx % nDivs;
+
+            fila2 = Math.floor(pieza / nDivs);
+            col2 = pieza % nDivs;
+
+            ctx2.drawImage(imgTemp, col2 * tam, fila2 * tam, tam, tam, col * tam, fila * tam, tam, tam);
+            divisiones();
+        });
+    };
+
+    // Establecer la fuente de la imagen temporal
+    imgTemp.src = imgData;
+}
+
+
 function ejecutarPuzzle() {
     mostrarCanvasPuzzle();
-    divisiones();
+    if (!sessionStorage['piezasMezcladas']) {
+    mezclarPiezas();
+    sessionStorage.setItem('piezasMezcladas', 'true');
+}
+    pintarPiezas();
+
 }
