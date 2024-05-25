@@ -2,6 +2,11 @@
 let intervalo;
 const ANCHO_CANVAS = 360;
 let nDivs = 5;
+let jugadasRealizadas = 0; 
+let piezasCorrectas = 0;  
+let estadoInicialPiezas = [];
+let victoria = 0;
+
 document.addEventListener("DOMContentLoaded", function() {
     // Borrar el sessionStorage al cargar la página
     sessionStorage.clear();
@@ -89,13 +94,24 @@ function mostrarMensajeModal() {
     let jugadasRealizadas = document.getElementById('jugadasRealizadas').textContent;
     let piezasCorrectas = document.getElementById('piezasCorrectas').textContent;
     let tiempoEmpleado = document.getElementById('tiempoEmpleado').textContent;
+    let mensaje;
+    if (victoria===0){
+        // Construir el mensaje de derrota
+        mensaje = `Oh has perdido!!!\n `;
+        mensaje += `Vuelve a intentarlo!\n\n`;
+        mensaje += `Jugadas realizadas: ${jugadasRealizadas}\n`;
+        mensaje += `Piezas Correctas: ${piezasCorrectas}\n`;
+        mensaje += `Tiempo Empleado: ${tiempoEmpleado}\n`;
+    }else{
+        // Construir el mensaje de victoria
+        mensaje = `Has ganado!!!\n `;
+        mensaje += `Enhorabuena!\n\n`;
+        mensaje += `Jugadas realizadas: ${jugadasRealizadas}\n`;
+        mensaje += `Piezas Correctas: ${piezasCorrectas}\n`;
+        mensaje += `Tiempo Empleado: ${tiempoEmpleado}\n`;
+    }
 
-    // Construir el mensaje
-    let mensaje = `Oh has perdido!!!\n `;
-    mensaje += `Vuelve a intentarlo!\n\n`;
-    mensaje += `Jugadas realizadas: ${jugadasRealizadas}\n`;
-    mensaje += `Piezas Correctas: ${piezasCorrectas}\n`;
-    mensaje += `Tiempo Empleado: ${tiempoEmpleado}\n`;
+
 
     // Mostrar el mensaje modal
     alert(mensaje);
@@ -290,8 +306,6 @@ function cargarImagen() {
 
 // Función para actualizar nDivs según la opción seleccionada
 function actualizarDivs(valor) {
-    console.log('Valor seleccionado:', valor);
-
     switch (valor) {
         case "5x5":
             nDivs = 5;
@@ -306,17 +320,15 @@ function actualizarDivs(valor) {
             nDivs = 5;
             break;
     }
-    console.log('nDivs actualizado a:', nDivs);
-
 }
 
-    function prepararEventosCanvas() {
-        let cv = document.querySelector('#cv1');
-        let cv2 = document.querySelector('#cv2');
-        cv.onclick = function(evt) {        
-            cargarImagen();
-        }
-     // Variables para almacenar la pieza seleccionada anteriormente y su posición
+function prepararEventosCanvas() {
+    let cv = document.querySelector('#cv1');
+    let cv2 = document.querySelector('#cv2');
+    cv.onclick = function(evt) {        
+        cargarImagen();
+    }
+ // Variables para almacenar la pieza seleccionada anteriormente y su posición
     let piezaSeleccionada = null;
     let posicionPiezaSeleccionada = null;
 
@@ -346,17 +358,35 @@ function actualizarDivs(valor) {
             piezas[posicionPiezaSeleccionada] = piezas[indice];
             piezas[indice] = temp;
 
+            // Incrementar el contador de jugadas realizadas
+            jugadasRealizadas++;
+            document.getElementById('jugadasRealizadas').textContent = jugadasRealizadas;
+
             // Reiniciar la pieza seleccionada y su posición
             piezaSeleccionada = null;
             posicionPiezaSeleccionada = null;
+            
+            piezasCorrectas = 0;
+
+            for (let i = 0; i < piezas.length; i++) {
+                if (piezas[i] === estadoInicialPiezas[i]) {
+                    piezasCorrectas++;
+                }
+            }
+            document.getElementById('piezasCorrectas').textContent = piezasCorrectas;
         }
 
-        // Actualizar el sessionStorage con las nuevas posiciones de las piezas
-        sessionStorage['piezas'] = JSON.stringify(piezas);
+        if(piezasCorrectas === nDivs*nDivs){
+            victoria=1;
+            mostrarMensajeModal(jugadasRealizadas, piezasCorrectas, document.getElementById('tiempoEmpleado'));
+        }
 
-        // Volver a pintar el canvas2 con las piezas actualizadas
-        pintarPiezas();
-    };
+    // Actualizar el sessionStorage con las nuevas posiciones de las piezas
+    sessionStorage['piezas'] = JSON.stringify(piezas);
+
+    // Volver a pintar el canvas2 con las piezas actualizadas
+    pintarPiezas();
+};
 
     // Desactivar botón Empezar
     document.getElementById('playButton').disabled = true;
@@ -372,6 +402,7 @@ function actualizarDivs(valor) {
                 
     divisiones();
 }
+
 // Función para mostrar el canvas correspondiente
 function mostrarCanvas(canvasId) {
     let canvas = document.getElementById(canvasId);
@@ -401,6 +432,10 @@ function mostrarCanvasPuzzle() {
 }
 function divisiones() {
     console.log("Se divide en:", nDivs);
+
+    for( j = 0; j < nDivs * nDivs; j++)
+        estadoInicialPiezas.push( j );
+
     let cv  = document.querySelector('#cv2'),
         ctx = cv.getContext('2d'),
         i, ancho = cv.width / nDivs;
@@ -423,10 +458,8 @@ function mezclarPiezas() {
     let piezas = [],
         i, j, aux;
 
-        console.log("nDivs en mezclarPiezas: ", nDivs);
     for( i = 0; i < nDivs * nDivs; i++)
         piezas.push( i );
-
 
     // mezclar piezas
     piezas.forEach( function(pieza, idx) {
