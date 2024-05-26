@@ -6,25 +6,87 @@ let jugadasRealizadas = 0;
 let piezasCorrectas = 0;  
 let estadoInicialPiezas = [];
 let victoria = 0;
-
 document.addEventListener("DOMContentLoaded", function() {
     // Borrar el sessionStorage al cargar la página
-    sessionStorage.clear();
+    if(sessionStorage.length===1)
+        sessionStorage.clear();
+    console.log(sessionStorage);
+
+    if(sessionStorage.length>0){
+        //Cargo la dificultad del sesion storage
+        var dificultadConcatenada = sessionStorage.getItem('dificultad') + "x" + sessionStorage.getItem('dificultad');
+        var radioBtnDificultad = document.getElementById(dificultadConcatenada);
+        if(radioBtnDificultad!=null){
+            radioBtnDificultad.checked = true;
+        }else{
+            sessionStorage.setItem('dificultad',5);
+            radioBtnDificultad = '5x5';
+            radioBtnDificultad.checked = true;
+        }
+        nDivs =  sessionStorage.getItem('dificultad');
+
+        //Cargo las piezas jugadas del sesion storage
+        var jugadas = sessionStorage.getItem('jugadas');
+        if(jugadas!=null){
+            jugadasRealizadas = jugadas ;
+        }else{
+            sessionStorage.setItem('jugadas',0);
+            jugadas = sessionStorage.getItem('jugadas');
+        }
+        jugadasRealizadas = sessionStorage.getItem('jugadas');
+        var divJugadas = document.getElementById('jugadasRealizadas');
+        divJugadas.textContent = sessionStorage.getItem('jugadas');
+        
+         //Cargo las piezas correctas del sesion storage
+         var correctas = sessionStorage.getItem('correctas');
+         if(correctas!=null){
+             piezasCorrectas = correctas ;
+         }else{
+             sessionStorage.setItem('correctas',0);
+             correctas = sessionStorage.getItem('correctas');
+         }
+         piezasCorrectas = sessionStorage.getItem('correctas');
+         var divCorrectas = document.getElementById('piezasCorrectas');
+         divCorrectas.textContent = sessionStorage.getItem('correctas');
+
+        //Cargo el tiempo del sesion storage
+         var tiempoEmpleado = sessionStorage.getItem('tiempo');
+         if(tiempoEmpleado!=null){
+            document.getElementById('tiempoEmpleado').textContent = tiempoEmpleado ;
+         }else{
+             sessionStorage.setItem('tiempo','0m 0s');
+             tiempoEmpleado = sessionStorage.getItem('tiempo');
+         }
+         document.getElementById('tiempoEmpleado').textContent = sessionStorage.getItem('tiempo');
+         
+         //Falta guardar y comprobar la imagen del canvas
+
+    }
     prepararCanvas();
     prepararEventosCanvas();
 });
+
 // Función para actualizar el temporizador
 function actualizarTiempo(tiempo) {
     const tiempoEmpleado = document.getElementById('tiempoEmpleado');
     tiempoEmpleado.textContent = tiempo;
+    sessionStorage.setItem('tiempo', tiempo);
+    // sessionStorage.setItem('tiempo', tiempo);
+    // console.log(tiempo);
 }
 
 
 // Función para iniciar el temporizador
 function iniciarTemporizador() {
-    let segundos = 0;
-    let minutos = 0;
-    let horas = 0;
+    const tiempoEmpleado = document.getElementById('tiempoEmpleado').textContent;
+    let tiempoRegex = /(\d+)m (\d+)s/;
+    let match = tiempoEmpleado.match(tiempoRegex);
+    let minutos=0;
+    let segundos=0;
+    if (match) {
+         minutos = parseInt(match[1]);
+         segundos = parseInt(match[2]);
+    }
 
     // Desactivar el botón "Empezar"
     document.getElementById('playButton').disabled = true;
@@ -52,12 +114,7 @@ function iniciarTemporizador() {
             minutos++;
             segundos = 0;
         }
-        if(minutos === 60){
-            horas++;
-            minutos = 0;
-            segundos = 0;
-        }
-        actualizarTiempo(`${horas}h ${minutos}m ${segundos}s`);
+        actualizarTiempo(`${minutos}m ${segundos}s`);
     }, 1000);
 
     // Habilitar el botón "Terminar"
@@ -111,7 +168,7 @@ function mostrarMensajeModal() {
         mensaje += `Tiempo Empleado: ${tiempoEmpleado}\n`;
     }
 
-
+    sessionStorage.clear();
 
     // Mostrar el mensaje modal
     alert(mensaje);
@@ -288,11 +345,6 @@ function cargarImagen() {
                 cv1.width = cv1.width;
                 ctx1.drawImage(img, posX, posY, ancho, alto);
 
-                // // Copiar la imagen del cv1 al cv2
-                // cv2.width = cv1.width;
-                // cv2.height = cv1.height;
-                // ctx2.drawImage(cv1, 0, 0);
-
                 // Activar botón Empezar
                 document.getElementById('playButton').disabled = false;
             };
@@ -320,6 +372,7 @@ function actualizarDivs(valor) {
             nDivs = 5;
             break;
     }
+    sessionStorage.setItem('dificultad',nDivs);
 }
 
 function prepararEventosCanvas() {
@@ -361,6 +414,7 @@ function prepararEventosCanvas() {
             // Incrementar el contador de jugadas realizadas
             jugadasRealizadas++;
             document.getElementById('jugadasRealizadas').textContent = jugadasRealizadas;
+            sessionStorage.setItem('jugadas',jugadasRealizadas);
 
             // Reiniciar la pieza seleccionada y su posición
             piezaSeleccionada = null;
@@ -374,6 +428,7 @@ function prepararEventosCanvas() {
                 }
             }
             document.getElementById('piezasCorrectas').textContent = piezasCorrectas;
+            sessionStorage.setItem('correctas',piezasCorrectas);
         }
 
         if(piezasCorrectas === nDivs*nDivs){
