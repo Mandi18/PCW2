@@ -6,6 +6,7 @@ let jugadasRealizadas = 0;
 let piezasCorrectas = 0;  
 let estadoInicialPiezas = [];
 let victoria = 0;
+let cargada = 0;
 document.addEventListener("DOMContentLoaded", function() {
     // Borrar el sessionStorage al cargar la página
     if(sessionStorage.length===1)
@@ -59,8 +60,28 @@ document.addEventListener("DOMContentLoaded", function() {
          }
          document.getElementById('tiempoEmpleado').textContent = sessionStorage.getItem('tiempo');
          
-         //Falta guardar y comprobar la imagen del canvas
+         var imagenCanvas = sessionStorage.getItem('imagen');
+         if(imagenCanvas!=null){
+            // Crear una nueva imagen
+            var blob = dataURLtoBlob(imagenCanvas);
+            var file = new File([blob], "image.png", { type: blob.type });
+            mostrarImagenEnCanvas(file);
+         }
+        // Desactivar los radio buttons con nombre "option_grid"
+        let radioButtonsGrid = document.querySelectorAll('input[type="radio"][name="option_grid"]');
+        radioButtonsGrid.forEach(button => {
+            button.disabled = true;
+        });
+        // Desactivar el botón "Cargar imagen"
+        document.getElementById('loadImg').disabled = true;
 
+        var imgCargada=sessionStorage.getItem('cargada');
+        if(imgCargada!= null){
+            cargada=1;
+        }else{
+            cargada=0;
+            sessionStorage.setItem('cargada',cargada);
+        }
     }
     prepararCanvas();
     prepararEventosCanvas();
@@ -132,6 +153,9 @@ function iniciarTemporizador() {
         button.disabled = false;
     });
 
+    var canvas = document.getElementById('cv1');
+    var dataURL = canvas.toDataURL();
+    sessionStorage.setItem('imagen', dataURL);
 }
 
 // Función para detener el temporizador y restaurar el estado inicial
@@ -186,61 +210,53 @@ function prepararCanvas() {
     cv.width = ANCHO_CANVAS;
     cv.height = cv.width;
 
-    // DnD: Origen
-    let imgs = document.querySelectorAll('#sec1 > footer > img');
-
-    imgs.forEach( function( img, idx ) {
-        img.setAttribute('draggable', 'true');
-        img.setAttribute('data-idx', idx);
-        img.ondragstart = function( evt ) {
-            evt.dataTransfer.setData('text/plain', idx);
+    if(cargada===0){
+        // DnD: Destino
+        cv.ondragover = function( evt ) {
+            evt.preventDefault();
         }
-    });
 
-    // DnD: Destino
-    cv.ondragover = function( evt ) {
-        evt.preventDefault();
-    }
+        cv.ondrop = function( evt ) {
+            evt.preventDefault();
 
-    cv.ondrop = function( evt ) {
-        evt.preventDefault();
+            // if( evt.dataTransfer.files.length > 0 ) {
+            if( evt.dataTransfer.getData('text/plain') == '' ) {
+                console.log("FICHERO EXTERNO");
+                let fichero = evt.dataTransfer.files[0];
 
-        // if( evt.dataTransfer.files.length > 0 ) {
-        if( evt.dataTransfer.getData('text/plain') == '' ) {
-            console.log("FICHERO EXTERNO");
-            let fichero = evt.dataTransfer.files[0];
-
-            mostrarImagenEnCanvas( fichero );
-        }
-        else {
-            let idx = evt.dataTransfer.getData('text/plain'),
-                ctx = cv.getContext('2d'),
-                img;
-            img = document.querySelector('[data-idx="' + idx + '"]');
-
-            // Pintar la imagen
-            let ancho, alto,
-                posX, posY;
-
-            if( img.naturalWidth > img.naturalHeight ) {
-                ancho = cv.width;
-                posX = 0;
-                alto = img.naturalHeight * (cv.width / img.naturalWidth);
-                posY = (cv.height - alto) / 2;
+                mostrarImagenEnCanvas( fichero );
             }
             else {
-                alto = cv.height;
-                posY = 0;
-                ancho = img.naturalWidth * (cv.height / img.naturalHeight);
-                posX = (cv.width - ancho) / 2;
+                let idx = evt.dataTransfer.getData('text/plain'),
+                    ctx = cv.getContext('2d'),
+                    img;
+                img = document.querySelector('[data-idx="' + idx + '"]');
+
+                // Pintar la imagen
+                let ancho, alto,
+                    posX, posY;
+
+                if( img.naturalWidth > img.naturalHeight ) {
+                    ancho = cv.width;
+                    posX = 0;
+                    alto = img.naturalHeight * (cv.width / img.naturalWidth);
+                    posY = (cv.height - alto) / 2;
+                }
+                else {
+                    alto = cv.height;
+                    posY = 0;
+                    ancho = img.naturalWidth * (cv.height / img.naturalHeight);
+                    posX = (cv.width - ancho) / 2;
+                }
+                cv.width = cv.width;
+                ctx.beginPath();
+                ctx.fillStyle ='#fff';
+                ctx.fillRect(0,0,cv.width, cv.height);
+                ctx.drawImage( img, posX, posY, ancho, alto);
             }
-            cv.width = cv.width;
-            ctx.beginPath();
-            ctx.fillStyle ='#fff';
-            ctx.fillRect(0,0,cv.width, cv.height);
-            ctx.drawImage( img, posX, posY, ancho, alto);
         }
     }
+
     cv2 = document.querySelector('#cv2'),
     cv2.width = cv.width;
     cv2.height = cv.height;
@@ -378,9 +394,13 @@ function actualizarDivs(valor) {
 function prepararEventosCanvas() {
     let cv = document.querySelector('#cv1');
     let cv2 = document.querySelector('#cv2');
-    cv.onclick = function(evt) {        
-        cargarImagen();
-    }
+   if(cargada===0){
+        cv.onclick = function(evt) {        
+            cargarImagen();
+            cargada=1;
+            sessionStorage.setItem('cargada',cargada);
+        }
+   }
  // Variables para almacenar la pieza seleccionada anteriormente y su posición
     let piezaSeleccionada = null;
     let posicionPiezaSeleccionada = null;
@@ -572,4 +592,13 @@ function ejecutarPuzzle() {
 }
     pintarPiezas();
 
+}
+// Función para convertir una URL de datos en un objeto Blob
+function dataURLtoBlob(dataURL) {
+    var arr = dataURL.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type:mime});
 }
