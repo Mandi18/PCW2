@@ -6,10 +6,12 @@ let jugadasRealizadas = 0;
 let piezasCorrectas = 0;  
 let estadoInicialPiezas = [];
 let victoria = 0;
+let n=0;
 let cargada = 0;
+
 document.addEventListener("DOMContentLoaded", function() {
     // Borrar el sessionStorage al cargar la página
-    if(sessionStorage.length===1)
+    if(sessionStorage.length===2 || sessionStorage.getItem('n')==1)
         sessionStorage.clear();
     console.log(sessionStorage);
 
@@ -66,23 +68,24 @@ document.addEventListener("DOMContentLoaded", function() {
             var blob = dataURLtoBlob(imagenCanvas);
             var file = new File([blob], "image.png", { type: blob.type });
             mostrarImagenEnCanvas(file);
-         }
-        // Desactivar los radio buttons con nombre "option_grid"
-        let radioButtonsGrid = document.querySelectorAll('input[type="radio"][name="option_grid"]');
-        radioButtonsGrid.forEach(button => {
-            button.disabled = true;
-        });
-        // Desactivar el botón "Cargar imagen"
-        document.getElementById('loadImg').disabled = true;
-
-        var imgCargada=sessionStorage.getItem('cargada');
-        if(imgCargada!= null){
-            cargada=1;
-        }else{
-            cargada=0;
-            sessionStorage.setItem('cargada',cargada);
         }
+            // Desactivar los radio buttons con nombre "option_grid"
+            let radioButtonsGrid = document.querySelectorAll('input[type="radio"][name="option_grid"]');
+            radioButtonsGrid.forEach(button => {
+                button.disabled = true;
+            });
+            // Desactivar el botón "Cargar imagen"
+            document.getElementById('loadImg').disabled = true; 
+
+            var imgCargada=sessionStorage.getItem('cargada');
+            if(imgCargada!= null){
+                cargada=1;
+            }else{
+                cargada=0;
+                sessionStorage.setItem('cargada',cargada);
+            }
     }
+
     prepararCanvas();
     prepararEventosCanvas();
 });
@@ -152,7 +155,6 @@ function iniciarTemporizador() {
     radioButtons.forEach(button => {
         button.disabled = false;
     });
-
     var canvas = document.getElementById('cv1');
     var dataURL = canvas.toDataURL();
     sessionStorage.setItem('imagen', dataURL);
@@ -191,11 +193,12 @@ function mostrarMensajeModal() {
         mensaje += `Piezas Correctas: ${piezasCorrectas}\n`;
         mensaje += `Tiempo Empleado: ${tiempoEmpleado}\n`;
     }
-
     sessionStorage.clear();
-
+n++;
+sessionStorage.setItem("n",n);  
     // Mostrar el mensaje modal
     alert(mensaje);
+    console.log("n: ",n);
     // Recargar la página después de cerrar el mensaje modal
     window.location.reload();
 }
@@ -260,8 +263,7 @@ function prepararCanvas() {
     cv2 = document.querySelector('#cv2'),
     cv2.width = cv.width;
     cv2.height = cv.height;
-    //cv3.width = cv.width;
-    //cv3.height = cv.height;
+
 }
 function mostrarImagenEnCanvas(fichero) {
     let cv = document.querySelector('#cv1'),
@@ -394,7 +396,7 @@ function actualizarDivs(valor) {
 function prepararEventosCanvas() {
     let cv = document.querySelector('#cv1');
     let cv2 = document.querySelector('#cv2');
-   if(cargada===0){
+    if(cargada===0){
         cv.onclick = function(evt) {        
             cargarImagen();
             cargada=1;
@@ -452,6 +454,7 @@ function prepararEventosCanvas() {
         }
 
         if(piezasCorrectas === nDivs*nDivs){
+            console.log("ganas");
             victoria=1;
             mostrarMensajeModal(jugadasRealizadas, piezasCorrectas, document.getElementById('tiempoEmpleado'));
         }
