@@ -396,6 +396,7 @@ function actualizarDivs(valor) {
 function prepararEventosCanvas() {
     let cv = document.querySelector('#cv1');
     let cv2 = document.querySelector('#cv2');
+    let selecciona1= 0;
     if(cargada===0){
         cv.onclick = function(evt) {        
             cargarImagen();
@@ -424,10 +425,12 @@ function prepararEventosCanvas() {
 
         // Si no hay ninguna pieza seleccionada anteriormente
         if (piezaSeleccionada === null) {
+            pintarFondo(fila, columna,0);
             // Almacenar la pieza seleccionada y su posición
             piezaSeleccionada = piezas[indice];
             posicionPiezaSeleccionada = indice;
         } else {
+            selecciona1 = 1;
             // Intercambiar las posiciones de las piezas
             let temp = piezas[posicionPiezaSeleccionada];
             piezas[posicionPiezaSeleccionada] = piezas[indice];
@@ -454,7 +457,6 @@ function prepararEventosCanvas() {
         }
 
         if(piezasCorrectas === nDivs*nDivs){
-            console.log("ganas");
             victoria=1;
             mostrarMensajeModal(jugadasRealizadas, piezasCorrectas, document.getElementById('tiempoEmpleado'));
         }
@@ -463,7 +465,10 @@ function prepararEventosCanvas() {
     sessionStorage['piezas'] = JSON.stringify(piezas);
 
     // Volver a pintar el canvas2 con las piezas actualizadas
+   if(selecciona1 === 1){
+    selecciona1=0;
     pintarPiezas();
+   }
 };
 
     // Desactivar botón Empezar
@@ -558,30 +563,36 @@ function pintarPiezas() {
         ctx2 = cv2.getContext('2d'),
         tam = cv1.width / nDivs; // Utilizar el valor actualizado de nDivs
 console.log(piezas);
+    let i =0;
+    let piezasInicial = [];
+    for( j = 0; j < nDivs * nDivs; j++)
+        piezasInicial.push( j );
     // Obtener la imagen del canvas cv1
     let imgData = cv1.toDataURL();
 
     // Crear una imagen temporal
     let imgTemp = new Image();
     imgTemp.onload = function() {
-        // Clear the canvas before drawing
+        // Limpiar el canvas antes de dibujar
         cv2.width = cv2.width;
 
         piezas.forEach(function(pieza, idx) {
             let fila, col, // Posición en el vector de piezas
                 fila2, col2;
-
             fila = Math.floor(idx / nDivs);
             col = idx % nDivs;
 
             fila2 = Math.floor(pieza / nDivs);
             col2 = pieza % nDivs;
-
             ctx2.drawImage(imgTemp, col2 * tam, fila2 * tam, tam, tam, col * tam, fila * tam, tam, tam);
+                if (pieza === estadoInicialPiezas[i]) {
+                    pintarFondo(fila, col,1);
+                }
+
             divisiones();
+            i++;
         });
     };
-
     // Establecer la fuente de la imagen temporal
     imgTemp.src = imgData;
 }
@@ -604,4 +615,35 @@ function dataURLtoBlob(dataURL) {
         u8arr[n] = bstr.charCodeAt(n);
     }
     return new Blob([u8arr], {type:mime});
+}
+function pintarFondo( fila, col, color ) {
+        let cv2 = document.querySelector('#cv2'),
+        ctx2 = cv2.getContext('2d'),
+        ancho = cv2.width / nDivs,
+        imgData;
+
+    imgData = ctx2.getImageData(col * ancho, fila * ancho, ancho, ancho);
+    let pixel;
+    for(let i = 0; i < imgData.height; i++ ){
+        for( let j = 0; j < imgData.height; j++) {
+            if(color === 1){
+                pixel = (i * imgData.width + j) * 4;
+                imgData.data[pixel] = 0; // rojo
+                //imgData.data[pixel + 1] = 0; // verde
+                imgData.data[pixel + 2] = 0; // azul
+                //imgData.data[pixel + 3] = 0; // alpha
+    
+            }else if( color === 0){
+                pixel = (i * imgData.width + j) * 4;
+                imgData.data[pixel] = 0; // rojo
+                imgData.data[pixel + 1] = 0; // verde
+                //imgData.data[pixel + 2] = 0; // azul
+                //imgData.data[pixel + 3] = 0; // alpha
+            }
+
+        }
+    }
+
+    ctx2.putImageData( imgData, col * ancho, fila * ancho);
+
 }
