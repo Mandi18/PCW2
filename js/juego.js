@@ -61,16 +61,30 @@ document.addEventListener("DOMContentLoaded", function() {
          var divCorrectas = document.getElementById('piezasCorrectas');
          divCorrectas.textContent = sessionStorage.getItem('correctas');
 
-        //Cargo el tiempo del sesion storage
-         var tiempoEmpleado = sessionStorage.getItem('tiempo');
-         if(tiempoEmpleado!=null){
-            document.getElementById('tiempoEmpleado').textContent = tiempoEmpleado ;
-         }else{
-             sessionStorage.setItem('tiempo','0m 0s');
-             tiempoEmpleado = sessionStorage.getItem('tiempo');
-         }
-         document.getElementById('tiempoEmpleado').textContent = sessionStorage.getItem('tiempo');
-         
+        // Obtener el tiempo de inicio guardado en sessionStorage
+        const tiempoInicial = parseInt(sessionStorage.getItem('tiempo'));
+
+        if (tiempoInicial) {
+            // Obtener el tiempo actual del ordenador en milisegundos
+            const tiempoActual = new Date().getTime();
+
+            // Calcular la diferencia de tiempo en milisegundos
+            const tiempoTranscurrido = tiempoActual - tiempoInicial;
+
+            // Convertir la diferencia de tiempo a minutos y segundos
+            let minutos = Math.floor(tiempoTranscurrido / (1000 * 60));
+            let segundos = Math.floor((tiempoTranscurrido % (1000 * 60)) / 1000);
+
+            // Formatear el tiempo en minutos y segundos
+            let tiempoFormateado = `${minutos}m ${segundos}s`;
+
+            // Mostrar el tiempo transcurrido en el elemento HTML
+            document.getElementById('tiempoEmpleado').textContent = tiempoFormateado;
+            
+        } else {
+            // Si no hay un tiempo inicial guardado, mostrar "0m 0s"
+            document.getElementById('tiempoEmpleado').textContent = '0m 0s';
+        }         
          var imagenCanvas = sessionStorage.getItem('imagen');
          if(imagenCanvas!=null){
             // Crear una nueva imagen
@@ -85,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             // Desactivar el botón "Cargar imagen"
             document.getElementById('loadImg').disabled = true; 
-
             var imgCargada=sessionStorage.getItem('cargada');
             if(imgCargada!= null){
                 cargada=1;
@@ -97,30 +110,55 @@ document.addEventListener("DOMContentLoaded", function() {
 
     prepararCanvas();
     prepararEventosCanvas();
+    setInterval(actualizarTiempoSinPartida, 1000);
 });
 
-addEventListener
-
+// Función para actualizar el tiempo después de cargar la página
+function actualizarTiempoSinPartida() {
+    // Obtener el tiempo de inicio guardado en sessionStorage
+    const tiempoInicial = parseInt(sessionStorage.getItem('tiempo'));
+    if(victoria!==2){
+        if (tiempoInicial) {
+            // Obtener el tiempo actual del ordenador en milisegundos
+            const tiempoActual = new Date().getTime();
+    
+            // Calcular la diferencia de tiempo en milisegundos
+            const tiempoTranscurrido = tiempoActual - tiempoInicial;
+    
+            // Convertir la diferencia de tiempo a minutos y segundos
+            let minutos = Math.floor(tiempoTranscurrido / (1000 * 60));
+            let segundos = Math.floor((tiempoTranscurrido % (1000 * 60)) / 1000);
+    
+            // Formatear el tiempo en minutos y segundos
+            let tiempoFormateado = `${minutos}m ${segundos}s`;
+    
+            // Mostrar el tiempo transcurrido en el elemento HTML
+            document.getElementById('tiempoEmpleado').textContent = tiempoFormateado;
+        } else {
+            // Si no hay un tiempo inicial guardado, mostrar "0m 0s"
+            document.getElementById('tiempoEmpleado').textContent = '0m 0s';
+        }         
+    }
+    
+}
 // Función para actualizar el temporizador
 function actualizarTiempo(tiempo) {
     const tiempoEmpleado = document.getElementById('tiempoEmpleado');
     tiempoEmpleado.textContent = tiempo;
-    sessionStorage.setItem('tiempo', tiempo);
-    // sessionStorage.setItem('tiempo', tiempo);
-    // console.log(tiempo);
 }
 
 
 // Función para iniciar el temporizador
 function iniciarTemporizador() {
-    const tiempoEmpleado = document.getElementById('tiempoEmpleado').textContent;
-    let tiempoRegex = /(\d+)m (\d+)s/;
-    let match = tiempoEmpleado.match(tiempoRegex);
-    let minutos=0;
-    let segundos=0;
-    if (match) {
-         minutos = parseInt(match[1]);
-         segundos = parseInt(match[2]);
+    let startTime = sessionStorage.getItem('tiempo'); // Obtener el tiempo de inicio guardado en sessionStorage
+
+    if (!startTime) {
+        // Si no hay un tiempo de inicio guardado, obtener el tiempo actual y guardarlo en sessionStorage
+        startTime = new Date().getTime();
+        sessionStorage.setItem('tiempo', startTime);
+    } else {
+        // Si ya hay un tiempo de inicio guardado, convertirlo a un objeto Date para su posterior uso
+        startTime = parseInt(startTime);
     }
 
     // Desactivar el botón "Empezar"
@@ -144,33 +182,45 @@ function iniciarTemporizador() {
 
     // Actualizar el tiempo cada segundo
     intervalo = setInterval(function() {
-        segundos++;
-        if (segundos === 60) {
-            minutos++;
-            segundos = 0;
-        }
-        actualizarTiempo(`${minutos}m ${segundos}s`);
+        const currentTime = new Date().getTime(); // Obtener el tiempo actual en milisegundos
+        const tiempoTranscurrido = currentTime - startTime; // Calcular el tiempo transcurrido en milisegundos
+
+        let minutos = Math.floor(tiempoTranscurrido / (1000 * 60)); // Convertir milisegundos a minutos
+        let segundos = Math.floor((tiempoTranscurrido % (1000 * 60)) / 1000); // Convertir milisegundos restantes a segundos
+
+        // Formatear el tiempo en minutos y segundos
+        let tiempoFormateado = `${minutos}m ${segundos}s`;
+
+        // Actualizar el tiempo en el elemento HTML
+        actualizarTiempo(tiempoFormateado);
     }, 1000);
 
     // Habilitar el botón "Terminar"
     document.getElementById('stopButton').disabled = false;
 
     // Detener el temporizador cuando se haga clic en el botón "Terminar"
-    document.getElementById('stopButton').addEventListener('click', mostrarMensajeModal);
+    document.getElementById('stopButton').addEventListener('click', function() {
+        clearInterval(intervalo);
+        mostrarMensajeModal();
+    });
 
     // Remover el evento click del botón "Empezar" para evitar múltiples temporizadores
     document.getElementById('playButton').removeEventListener('click', iniciarTemporizador);
 
-            // Activar radio buttons
+    // Activar radio buttons
     let radioButtons = document.querySelectorAll('input[type="radio"][name="option_grid2"]');
     radioButtons.forEach(button => {
         button.disabled = false;
     });
+
     var canvas = document.getElementById('cv1');
     var dataURL = canvas.toDataURL();
     sessionStorage.setItem('imagen', dataURL);
 }
 
+function detenerTemporizador() {
+    victoria = 2;
+}
 // Función para mostrar el mensaje modal y recargar la página después de cerrarlo
 function mostrarMensajeModal() {
     // Obtener los valores de jugadas realizadas, piezas correctas y tiempo empleado
@@ -192,6 +242,7 @@ function mostrarMensajeModal() {
         modal.querySelector('.modal_tiempo').textContent = "Tiempo empleado: " + tiempoEmpleado;
         modal.classList.add('modal--show');
     }
+    detenerTemporizador();
 }
 function cerrarModal(){
         if(victoria===0){
@@ -417,6 +468,37 @@ function prepararEventosCanvas() {
  // Variables para almacenar la pieza seleccionada anteriormente y su posición
     let piezaSeleccionada = null;
     let posicionPiezaSeleccionada = null;
+
+// Variables para almacenar la última pieza pintada
+//let ultimaPiezaPintada = null;
+
+// cv2.onmousemove = function(evt) {
+//     // Obtener las coordenadas del mouse dentro del canvas
+//     let rect = cv2.getBoundingClientRect();
+//     let x = evt.clientX - rect.left;
+//     let y = evt.clientY - rect.top;
+
+//     // Calcular la fila y la columna en la que se encuentra el mouse
+//     let tam = cv2.width / nDivs;
+//     let fila = Math.floor(y / tam);
+//     let columna = Math.floor(x / tam);
+//     let indice = fila * nDivs + columna;
+
+//     // Obtener el contexto del canvas
+//     let ctx = cv2.getContext('2d');
+
+//     // Limpiar la última pieza pintada si hay una
+//     if (ultimaPiezaPintada !== null) {
+//         let [filaAnterior, columnaAnterior] = ultimaPiezaPintada;
+//         pintarFondo(filaAnterior, columnaAnterior, 3); // Restaura el color de fondo original
+//     }
+
+//     // Pintar la nueva pieza
+//     pintarFondo(fila, columna, 2); // Cambia el color de fondo a otro
+
+//     // Actualizar la última pieza pintada
+//     ultimaPiezaPintada = [fila, columna];
+// };
 
     cv2.onclick = function(evt) {
         // Obtener las coordenadas del clic dentro del canvas
@@ -650,7 +732,13 @@ function pintarFondo( fila, col, color ) {
                 //imgData.data[pixel + 2] = 0; // azul
                 //imgData.data[pixel + 3] = 0; // alpha
             }
-
+            // else if(color === 2){
+            //     pixel = (i * imgData.width + j) * 4;
+            //     //imgData.data[pixel] = 0; // rojo
+            //     imgData.data[pixel + 1] = 0; // verde
+            //     imgData.data[pixel + 2] = 0; // azul
+            //     //imgData.data[pixel + 3] = 0; // alpha
+            // }
         }
     }
 
