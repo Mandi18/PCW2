@@ -38,18 +38,18 @@
             <section>
                 <div class="fondoGris">
                     <h3> Dificultad: </h3>
-                    <input type="radio" class="option_grid" id="5x5" value="5x5" onclick="actualizarDivs(this.value)" checked>
+                    <input type="radio" name="option_grid" class="option_grid" id="5x5" value="5x5" onclick="actualizarDivs(this.value)" checked>
                     <label for="5x5">5x5</label>
-                    <input type="radio" class="option_grid" id="7x7" value="7x7" onclick="actualizarDivs(this.value)">
+                    <input type="radio" name="option_grid" class="option_grid" id="7x7" value="7x7" onclick="actualizarDivs(this.value)">
                     <label for="7x7">7x7</label>
-                    <input type="radio" class="option_grid" id="10x10" value="10x10" onclick="actualizarDivs(this.value)">
+                    <input type="radio" name="option_grid" class="option_grid" id="10x10" value="10x10" onclick="actualizarDivs(this.value)">
                     <label for="10x10">10x10</label>
                 </div>
             </section>     
                 <div class="canvasContainer">
-                    <input type="radio" class="option_grid2" id="imagen" value="imagen" onclick="mostrarCanvasImagen()" checked>
+                    <input type="radio" name="option_grid2" class="option_grid2" id="imagen" value="imagen" onclick="mostrarCanvasImagen()" checked>
                     <label for="imagen">imagen</label>
-                    <input type="radio" class="option_grid2" id="puzzle" value="puzzle" onclick="ejecutarPuzzle();">
+                    <input type="radio" name="option_grid2" class="option_grid2" id="puzzle" value="puzzle" onclick="ejecutarPuzzle();">
                     <label for="puzzle">puzzle</label>
                 </div>
                 <div class="canvasContainer">
@@ -59,7 +59,7 @@
                 <div class="canvasContainer">
                     <button id="loadImg" onclick="cargarImagen();"> <i class=icon-folder>Cargar imagen</i></button>
                     <button id="playButton" onclick="iniciarTemporizador()"><i class=icon-play>Empezar</i></button>
-                    <button id="stopButton" onclick="detenerTemporizador()"><i class=icon-upload>Terminar</i></button>
+                    <button id="stopButton" class="terminar"><i class=icon-upload>Terminar</i></button>
                 </div>
         </div>
     </main>
@@ -69,6 +69,38 @@
         </div>
         <a href="acerca.html" class="madimi-one-regular">Contacto</a>
     </footer>
+
+    <section id="modalBienvenida">
+        <div class="modal_contenedor">
+            <h2 class="modal_titulo">¡Bienvenido a Puzzle Race!</h2>
+            <p class="modal_parrafo">Elige la imagen que quieras e intenta montar el puzzle en el menor tiempo posible.</p>
+            <p class="modal_parrafo">Tienes 3 niveles de dificultad en los que intentarlo.</p>
+            <button class="modal_close" onclick="cerrarModalBienvenida()">Cerrar ventana</button>
+        </div>
+    </section>
+
+    <section class="modalVictoria">
+        <div class="modal_contenedor">
+            <h2 class="modal_titulo">Has ganado!!!</h2>
+            <h4 class="modal_titulo">Enhorabuena!</h4>
+            <p class="modal_jugadas"></p>
+            <p class="modal_correctas"></p>
+            <p class="modal_tiempo"></p>
+            <button class="modal_close" onclick="cerrarModal()">Cerrar ventana</button>
+        </div>
+    </section>
+
+    <section class="modalDerrota">
+        <div class="modal_contenedor">
+            <h2 class="modal_titulo">Oh has perdido!!</h2>
+            <h4 class="modal_titulo">Vuelve a intentarlo!</h4>
+            <p class="modal_jugadas"></p>
+            <p class="modal_correctas"></p>
+            <p class="modal_tiempo"></p>
+            <button class="modal_close" onclick="cerrarModal()">Cerrar ventana</button>
+        </div>
+    </section>
+
     <script src="js/juego.js"></script>
 </body>
 </html>

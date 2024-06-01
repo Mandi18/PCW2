@@ -9,9 +9,18 @@ let victoria = 0;
 let n=0;
 let cargada = 0;
 
+const perder = document.querySelector('.terminar');
+const modalVictoria = document.querySelector('.modalVictoria');
+const modalDerrota = document.querySelector('.modalDerrota');
+
+perder.addEventListener('click', (e)=>{
+    e.preventDefault();
+    modalDerrota.classList.add('modal--show');
+});
+
 document.addEventListener("DOMContentLoaded", function() {
     // Borrar el sessionStorage al cargar la página
-    if(sessionStorage.length===2 || sessionStorage.getItem('n')==1)
+    if(sessionStorage.length===1 || sessionStorage.length===2 || sessionStorage.getItem('n')==1)
         sessionStorage.clear();
     console.log(sessionStorage);
 
@@ -90,6 +99,8 @@ document.addEventListener("DOMContentLoaded", function() {
     prepararEventosCanvas();
 });
 
+addEventListener
+
 // Función para actualizar el temporizador
 function actualizarTiempo(tiempo) {
     const tiempoEmpleado = document.getElementById('tiempoEmpleado');
@@ -145,7 +156,7 @@ function iniciarTemporizador() {
     document.getElementById('stopButton').disabled = false;
 
     // Detener el temporizador cuando se haga clic en el botón "Terminar"
-    document.getElementById('stopButton').addEventListener('click', detenerTemporizador);
+    document.getElementById('stopButton').addEventListener('click', mostrarMensajeModal);
 
     // Remover el evento click del botón "Empezar" para evitar múltiples temporizadores
     document.getElementById('playButton').removeEventListener('click', iniciarTemporizador);
@@ -160,47 +171,46 @@ function iniciarTemporizador() {
     sessionStorage.setItem('imagen', dataURL);
 }
 
-// Función para detener el temporizador y restaurar el estado inicial
-function detenerTemporizador() {
-    // Obtener los valores de los elementos HTML
-    let jugadasRealizadas = document.getElementById('jugadasRealizadas').textContent;
-    let piezasCorrectas = document.getElementById('piezasCorrectas').textContent;
-    let tiempoEmpleado = document.getElementById('tiempoEmpleado').textContent;
-
-    // Mostrar el modal con la información obtenida
-    mostrarMensajeModal(jugadasRealizadas, piezasCorrectas, tiempoEmpleado);
-}
-
 // Función para mostrar el mensaje modal y recargar la página después de cerrarlo
 function mostrarMensajeModal() {
     // Obtener los valores de jugadas realizadas, piezas correctas y tiempo empleado
     let jugadasRealizadas = document.getElementById('jugadasRealizadas').textContent;
     let piezasCorrectas = document.getElementById('piezasCorrectas').textContent;
     let tiempoEmpleado = document.getElementById('tiempoEmpleado').textContent;
-    let mensaje;
     if (victoria===0){
-        // Construir el mensaje de derrota
-        mensaje = `Oh has perdido!!!\n `;
-        mensaje += `Vuelve a intentarlo!\n\n`;
-        mensaje += `Jugadas realizadas: ${jugadasRealizadas}\n`;
-        mensaje += `Piezas Correctas: ${piezasCorrectas}\n`;
-        mensaje += `Tiempo Empleado: ${tiempoEmpleado}\n`;
+        // Mostrar el mensaje de derrota
+        const modal = document.querySelector('.modalDerrota');
+        modal.querySelector('.modal_jugadas').textContent = "Jugadas realizadas: " + jugadasRealizadas;
+        modal.querySelector('.modal_correctas').textContent = "Piezas correctas: " + piezasCorrectas;
+        modal.querySelector('.modal_tiempo').textContent = "Tiempo empleado: " + tiempoEmpleado;
+        modal.classList.add('modal--show');
     }else{
-        // Construir el mensaje de victoria
-        mensaje = `Has ganado!!!\n `;
-        mensaje += `Enhorabuena!\n\n`;
-        mensaje += `Jugadas realizadas: ${jugadasRealizadas}\n`;
-        mensaje += `Piezas Correctas: ${piezasCorrectas}\n`;
-        mensaje += `Tiempo Empleado: ${tiempoEmpleado}\n`;
+        // Mostrar el mensaje de victoria
+        const modal = document.querySelector('.modalVictoria');
+        modal.querySelector('.modal_jugadas').textContent = "Jugadas realizadas: " + jugadasRealizadas;
+        modal.querySelector('.modal_correctas').textContent = "Piezas correctas: " + piezasCorrectas;
+        modal.querySelector('.modal_tiempo').textContent = "Tiempo empleado: " + tiempoEmpleado;
+        modal.classList.add('modal--show');
     }
-    sessionStorage.clear();
-n++;
-sessionStorage.setItem("n",n);  
-    // Mostrar el mensaje modal
-    alert(mensaje);
-    console.log("n: ",n);
-    // Recargar la página después de cerrar el mensaje modal
-    window.location.reload();
+}
+function cerrarModal(){
+        if(victoria===0){
+            const modal = document.querySelector('.modalVictoria');
+            modal.classList.remove('modal--show');
+        }else{
+            const modal = document.querySelector('.modalDerrota');
+            modal.classList.remove('modal--show');
+        }
+        sessionStorage.clear();
+        n++;
+        sessionStorage.setItem("n",n);  
+            // Recargar la página después de cerrar el mensaje modal
+            window.location.reload();
+}
+
+function cerrarModalBienvenida(){
+    const modal = document.getElementById('modalBienvenida');
+    modal.classList.add('modal--hide');
 }
 
 // Asociar la función de inicio al botón "Empezar"
