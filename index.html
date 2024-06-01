@@ -16,60 +16,52 @@
         <h2 class="page-title-container">Consigue formar el puzzle lo más rápido posible</h2>
     </header>
     <main>
-        <article name="puntuacion">
+        <article class="puntuacion">
+            <div class="colorTTablaPuntuacion"><h3>Puntuación</h3></div>
             <section>
-                <div scope="col" class="colorTTablaPuntuacion">Puntuación</div>
-            </section>
-            <section>
-                <div scope="row" class="gradiente">Jugadas realizadas:</div>
+                <div class="gradiente"><h4>Jugadas realizadas:</h4></div>
                 <div id="jugadasRealizadas">0</div>
             </section>
             <section>
-                <div scope="row" class="gradiente">Piezas Correctas:</div>
+                <div class="gradiente"><h4>Piezas Correctas:</h4></div>
                 <div id="piezasCorrectas">0</div>
             </section>
             <section>
-                <div scope="row" class="gradiente">Tiempo Empleado:</div>
+                <div class="gradiente"><h4>Tiempo Empleado:</h4></div>
                 <div id="tiempoEmpleado">0m 0s</div>
             </section>
         </article>
-        <article name="juego">
+        <div>
             <section>
-                <div scope="col" class="colorTTablaJuego">Juego</div>
+                <div class="colorTTablaJuego"><h3>Juego</h3></div>
             </section>
             <section>
-                <div scope="row" class="fondoGris">
-                    Dificultad: 
-                    <input type="radio" name="option_grid" id="5x5" value="5x5" onclick="actualizarDivs(this.value)" checked>
+                <div class="fondoGris">
+                    <h3> Dificultad: </h3>
+                    <input type="radio" class="option_grid" id="5x5" value="5x5" onclick="actualizarDivs(this.value)" checked>
                     <label for="5x5">5x5</label>
-                    <input type="radio" name="option_grid" id="7x7" value="7x7" onclick="actualizarDivs(this.value)">
+                    <input type="radio" class="option_grid" id="7x7" value="7x7" onclick="actualizarDivs(this.value)">
                     <label for="7x7">7x7</label>
-                    <input type="radio" name="option_grid" id="10x10" value="10x10" onclick="actualizarDivs(this.value)">
+                    <input type="radio" class="option_grid" id="10x10" value="10x10" onclick="actualizarDivs(this.value)">
                     <label for="10x10">10x10</label>
                 </div>
-            </section>            
-            <section>
-                <div scope="row">
-                    <input type="radio" name="option_grid2" id="imagen" value="imagen" onclick="mostrarCanvasImagen()" checked>
+            </section>     
+                <div class="canvasContainer">
+                    <input type="radio" class="option_grid2" id="imagen" value="imagen" onclick="mostrarCanvasImagen()" checked>
                     <label for="imagen">imagen</label>
-                    <input type="radio" name="option_grid2" id="puzzle" value="puzzle" onclick="ejecutarPuzzle();">
+                    <input type="radio" class="option_grid2" id="puzzle" value="puzzle" onclick="ejecutarPuzzle();">
                     <label for="puzzle">puzzle</label>
                 </div>
-            </section>
-            <section name="canvasContainer">
-                <div scope="row">
+                <div class="canvasContainer">
                     <canvas id="cv1"></canvas>
                     <canvas id="cv2" class="oculto"></canvas>
                 </div>
-            </section>
-            <section>
-                <div scope="row">
+                <div class="canvasContainer">
                     <button id="loadImg" onclick="cargarImagen();"> <i class=icon-folder>Cargar imagen</i></button>
                     <button id="playButton" onclick="iniciarTemporizador()"><i class=icon-play>Empezar</i></button>
                     <button id="stopButton" onclick="detenerTemporizador()"><i class=icon-upload>Terminar</i></button>
                 </div>
-            </section>
-        </article>
+        </div>
     </main>
     <footer>            
         <div>
