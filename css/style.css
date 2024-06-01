@@ -1,7 +1,24 @@
+/* Tipografía */
 .madimi-one-regular {
     font-family: "Madimi One", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+    min-width: 320px; /* Ancho mínimo */
+}
+
+h3 {
+    text-align: center;
+    padding: 1em;
+    margin: 0em;
 }
 
 header {
@@ -33,12 +50,6 @@ header h2 {
     padding-bottom: 10px;
 }
 
-h3{
-    text-align: center;
-    padding: 1em;
-    margin: 0em;
-}
-
 header img {
     padding-top: 15px;
     height: 150px;
@@ -54,7 +65,7 @@ main {
     grid-area: tablePuntuacion;
 }
 
-.juego{
+.juego {
     grid-area: tableJuego;
 }
 
@@ -70,32 +81,37 @@ article section div {
     text-align: center;
     border-bottom: 1px solid rgb(168, 167, 167);
 }
-.colorTTablaPuntuacion{
+
+.colorTTablaPuntuacion {
     background-color: rgb(180, 253, 229);
 }
-.fondoGris{
-    background-color:  #bfbfbf;
+
+.fondoGris {
+    background-color: #bfbfbf;
 }
-.colorTTablaJuego{
-    background-color:  #ffffcc;
+
+.colorTTablaJuego {
+    background-color: #ffffcc;
 }
-article section div[scope="col"] {
-    font-weight: bold;
-}
-.gradiente{
+
+.gradiente {
     background-image: linear-gradient(to right, white, rgb(113, 246, 255));
 }
+
 canvas {
-    border:1px solid #000;
+    border: 1px solid #000;
 }
+
 .canvasContainer {
     display: flex;
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
 }
+
 .oculto {
-    display:none;
+    display: none;
 }
+
 footer {
     color: white;
     background-color: #70D6FF;
@@ -124,6 +140,7 @@ footer time {
 footer a:hover {
     color: #ff98ca;
 }
+
 .modalOverlay {
     display: none;
     position: fixed;
@@ -133,9 +150,9 @@ footer a:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .modalContent {
+}
+
+.modalContent {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -143,29 +160,100 @@ footer a:hover {
     border-radius: 5px;
     width: 80%;
     max-width: 600px;
-  }
-  
-  .modalHeader, .modalFooter {
+}
+
+.modalHeader, .modalFooter {
     padding: 10px 0;
-  }
-  
-  .modalBody {
+}
+
+.modalBody {
     padding-bottom: 20px;
-  }
-  
-  .closeButton {
+}
+
+.closeButton {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .closeButton:hover,
-  .closeButton:focus {
+}
+
+.closeButton:hover,
+.closeButton:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
+}
+
+#modalBienvenida {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+}
+
+.modalVictoria, .modalDerrota {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal--show {
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.modal--hide{
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+.modal_contenedor {
+    margin: auto;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 3em 2.5em;
+    display: grid;
+    gap: 1em;
+    place-items: center;
+    grid-auto-columns: 100%;
+}
+
+h2.modal_titulo {
+    font-size: 2.5rem;
+}
+
+.modal_close {
+    text-decoration: none;
+    color: #fff;
+    background-color: #F26250;
+    padding: 1em 3em;
+    border: 1px solid;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 300;
+    transition: background-color .3s;
+}
+
+.modal_close:hover {
+    color: #F26250;
+    background-color: #fff;
+}
+
+/* Responsive Styles */
 @media (max-width: 858px) {
     header {
         grid-template-areas: 
@@ -173,27 +261,58 @@ footer a:hover {
             "h1"
             "h2";
     }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header img {
+        height: 100px;
+        width: 100px;
+    }
+
+    main {
+        display: block;
+    }
+
+    .puntuacion,
+    .juego {
+        margin: 20px 0;
+    }
+
+    .canvasContainer {
+        flex-direction: column;
+    }
+
+    .modal_contenedor {
+        width: 95%;
+        padding: 2em;
+    }
+
+    h2.modal_titulo {
+        font-size: 2rem;
+    }
 }
 
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
 
-/* Para la página de acerca */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
-    padding: 20px;
+    .modal_contenedor {
+        padding: 1.5em;
+    }
+
+    h2.modal_titulo {
+        font-size: 1.5rem;
+    }
+
+    .modal_close {
+        padding: 0.5em 1.5em;
+    }
 }
 
-main {
-    max-width: 800px;
-    margin: 20px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
+/* Estilos para la página de "Acerca" */
 .contenedor5 {
     display: flex;
     flex-direction: column;
@@ -268,80 +387,11 @@ p.problemas {
     margin-bottom: 20px;
 }
 
-#modalBienvenida {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #111111bd;
-    display: flex;
-}
-
-.modalVictoria, .modalDerrota {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #111111bd;
-    display: flex;
-}
-
-.modalVictoria, .modalDerrota{
-    opacity: 0;
-    pointer-events: none;
-}
-
-.modal--show{
-    opacity: 1;
-    pointer-events: unset;
-}
-
-.modal--hide{
-    opacity: 0;
-    pointer-events: none;
-}
-
-.modal_contenedor{
-    margin: auto;
-    width: 90%;
-    max-width: 600px;
-    max-height: 90%;
-    background-color: #fff;
-    border-radius: 6px;
-    padding: 3em 2.5em;
-    display: grid;
-    gap: 1em;
-    place-items: center;
-    grid-auto-columns: 100%;
-}
-
-h2.modal_titulo{
-    font-size: 2.5rem;
-}
-
-.modal_close{
-    text-decoration: none;
-    color: #fff;
-    background-color: #F26250;
-    padding: 1em 3em;
-    border: 1px solid;
-    border-radius: 6px;
-    display: inline-block;
-    font-weight: 300;
-    transition: background-color .3s;
-}
-.modal_close:hover{
-    color: #F26250;
-    background-color: #fff;
-}
-
 @media (max-width: 600px) {
     .contenedor5 {
         padding: 10px;
     }
-    
+
     .info-contenedor {
         flex-direction: column;
         align-items: flex-start;
